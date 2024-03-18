@@ -1,25 +1,28 @@
 import {createSlice} from '@reduxjs/toolkit'
 
 const initialState = {
-    value: 0,
+  pets: [],
 }
 
 export const appSlice = createSlice({
-    name: 'app',
-    initialState,
-    reducers: {
-        increment: (state) => {
-            state.value += 1
-        },
-        decrement: (state) => {
-            state.value -= 1
-        },
-        incrementByAmount: (state, action) => {
-            state.value += action.payload
-        },
+  name: 'app',
+  initialState,
+  reducers: {
+    fetchPets: (state) => {
+      state.pets = [{
+        isAdopted: true,
+        type: 'dog',
+        color: 'white',
+        age: 85,
+        size: "big",
+        name: "Doggy",
+        description: "Very cool doggy",
+        photo: "https://s3.amazonaws.com/cdn-origin-etr.akc.org/wp-content/uploads/2016/10/24162539/Samoyed-standing-on-a-path-in-the-forest.jpg"
+      }]
     },
+  },
 })
 
-export const {increment, decrement, incrementByAmount} = appSlice.actions
+export const {fetchPets} = appSlice.actions
 
 export default appSlice.reducer
