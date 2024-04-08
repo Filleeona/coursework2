@@ -16,13 +16,13 @@ export default function NotFound() {
         We couldn&#39;t find the page you were looking for.
       </Text>
       <Text fontSize='xl' align='center'>
-        Here&#39;s an adorable kitten instead:
+        Here&#39;s an adorable kitten instead!
       </Text>
     </div>
-    <Button colorScheme='teal' onClick={onBack}>GO BACK</Button>
+    <Button colorScheme='teal' onClick={onBack}>Go Back</Button>
 
     <Box boxSize='sm'>
-      <Image src='/404.jpeg'/>
+      <Image src='/kitten1.jpg'/>
     </Box>
   </Wrapper>
 }

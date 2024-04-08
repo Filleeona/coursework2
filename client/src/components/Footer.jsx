@@ -1,3 +1,5 @@
+import {Box} from "@chakra-ui/react";
+
 export default function Footer() {
-  return <div>Footer</div>
+  return <Box bg={"pink"}>Footer</Box>
 }
