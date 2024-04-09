@@ -19,7 +19,7 @@ export default function NotFound() {
         Here&#39;s an adorable kitten instead!
       </Text>
     </div>
-    <Button colorScheme='teal' onClick={onBack}>Go Back</Button>
+    <Button colorScheme='teal' borderRadius="20px" onClick={onBack}>Go Back</Button>
 
     <Box boxSize='sm'>
       <Image src='/kitten1.jpg'/>

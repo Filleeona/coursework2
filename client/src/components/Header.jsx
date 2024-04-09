@@ -12,7 +12,7 @@ export default function Header() {
   const location = useLocation();
 
   return <Wrapper>
-    <Box boxSize='3rem'>
+    <Box boxSize='2.5rem'>
       <Image src='/logo2.png'/>
     </Box>
     <div>
