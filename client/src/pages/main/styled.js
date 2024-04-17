@@ -19,3 +19,14 @@ export const NvBox = styled.div`
     color: teal;
   }
 `;
+
+export const PetBox = styled.div`
+  width: 60%;
+  height: 80%;
+  display: flex;
+  alignItems: center;
+  justifyContent: center;
+  flex-direction: column;
+  box-shadow: 0px 0px 5px 0px rgba(0, 0, 0, 0.5);
+  border-radius: 20px;
+`;

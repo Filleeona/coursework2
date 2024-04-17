@@ -1,6 +1,6 @@
 import {useDispatch, useSelector} from "react-redux";
 import {useEffect} from "react";
-import {NvBox, Wrapper} from "./styled.js";
+import {NvBox, PetBox, Wrapper} from "./styled.js";
 import {fetchPets} from "../../features/app/appReducer.js";
 import {Box, Button, Grid, Image, Text} from "@chakra-ui/react";
 import {useNavigate, Link} from "react-router-dom";
@@ -66,13 +66,12 @@ export default function Main() {
         <Text fontSize='3xl'>Who are waiting for you?</Text>
         <Text>If you want to know more about a pet, just click on its box.</Text>
       </Box>
-      <Box>
-        <Grid templateColumns="repeat(3, 1fr)" gap={4}>
-          {pets.map((pet, index) => (
-            <Box key={index} border="1px black solid" display="flex" alignItems="center" justifyContent="center"
-                 flexDir="column" p={4}>
+      <Box width="80%" height="80%" border="1px solid black" display="flex" alignItems="center" justifyContent="center">
+        <Grid templateColumns="repeat(3, 1fr)" width="80%" height="100%">
+          {pets.slice(0, 6).map((pet, index) => (
+            <PetBox key={index}>
               {pet.name}
-            </Box>
+            </PetBox>
           ))}
         </Grid>
       </Box>

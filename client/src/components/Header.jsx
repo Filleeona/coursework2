@@ -18,16 +18,17 @@ export default function Header() {
     <div>
       <Breadcrumb separator=''>
         <BreadcrumbItem>
-          <BreadcrumbLink href='/' color={location.pathname === '/' ? 'teal.500' : 'black.500'}>Home</BreadcrumbLink>
+          <BreadcrumbLink href='/' textDecoration="none"
+                          color={location.pathname === '/' ? 'teal.500' : 'black.500'}>Home</BreadcrumbLink>
         </BreadcrumbItem>
 
         <BreadcrumbItem>
-          <BreadcrumbLink href='/pets'
+          <BreadcrumbLink href='/pets' textDecoration="none"
                           color={location.pathname === '/pets' ? 'teal.500' : 'black.500'}>Pets</BreadcrumbLink>
         </BreadcrumbItem>
 
         <BreadcrumbItem>
-          <BreadcrumbLink href='/help'
+          <BreadcrumbLink href='/help' textDecoration="none"
                           color={location.pathname === '/help' ? 'teal.500' : 'black.500'}>Help</BreadcrumbLink>
         </BreadcrumbItem>
       </Breadcrumb>
