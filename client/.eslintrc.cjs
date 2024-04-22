@@ -2,6 +2,7 @@ module.exports = {
   root: true,
   env: {browser: true, es2020: true},
   extends: [
+    'plugin:prettier/recommended',
     'eslint:recommended',
     'plugin:react/recommended',
     'plugin:react/jsx-runtime',
@@ -17,6 +18,7 @@ module.exports = {
       'warn',
       {allowConstantExport: true},
     ],
-    'react-hooks/exhaustive-deps': 'off'
+    'react-hooks/exhaustive-deps': 'off',
+    "react/prop-types": "off"
   },
 }
