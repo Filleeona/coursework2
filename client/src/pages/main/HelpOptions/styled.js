@@ -12,8 +12,7 @@ export const HelpOption = styled.div`
   flex-direction: column;
   align-items: center;
   justify-content: center;
-  width: 15%;
-  height: 80%;
+  padding: 1rem 2rem;
   box-shadow: 0px 0px 5px 0px rgba(0, 0, 0, 0.5);
   border-radius: 20px;
 

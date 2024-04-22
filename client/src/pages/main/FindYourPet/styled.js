@@ -22,7 +22,7 @@ export const FindYourPetImage = styled(Box)`
   right: 0;
   left: 0;
   bottom: 0;
-  filter: blur(0.15rem);
+  filter: brightness(0.9);
   background-size: cover;
   background-position: center;
 `;

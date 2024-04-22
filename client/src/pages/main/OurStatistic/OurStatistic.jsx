@@ -17,12 +17,6 @@ export default function OurStatistic() {
       image: 'TBD',
     },
     {
-      id: 3,
-      amount: 77,
-      text: 'capacity',
-      image: 'TBD',
-    },
-    {
       id: 4,
       amount: 231,
       text: 'adopted',
