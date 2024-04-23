@@ -1,4 +1,5 @@
 import styled from 'styled-components';
+import { Box } from '@chakra-ui/react';
 
 export const WhoIsWaitingForYouContainer = styled.div`
   display: flex;
@@ -22,13 +23,17 @@ export const WhoIsWaitingGridContainer = styled.div`
   gap: 2rem 4rem;
 `;
 
-export const WhoIsWaitingGridItem = styled.div`
+export const WhoIsWaitingGridItem = styled(Box)`
   width: 10rem;
   height: 8rem;
   border-radius: 1rem;
-  border: 1px solid black;
   display: flex;
   justify-content: center;
   align-items: flex-end;
   padding-bottom: 0.5rem;
+  background-position: center center;
+  background-size: cover;
+  font-weight: 600;
+  color: white;
+  font-size: 1.25rem;
 `;
