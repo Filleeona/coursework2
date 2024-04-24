@@ -1,17 +1,23 @@
 import { OurStatisticContainer, OurStatisticContentWrapper } from './styled.js';
 import StatisticItem from './StatisticItem/StatisticItem.jsx';
+import { useSelector } from 'react-redux';
 
 export default function OurStatistic() {
+  const { pets } = useSelector((root) => root.app);
+
+  const amountOfCats = pets.filter((pet) => pet.type === 'cat').length;
+  const amountOfDogs = pets.filter((pet) => pet.type === 'dog').length;
+
   const statistics = [
     {
       id: 1,
-      amount: 57,
+      amount: amountOfDogs,
       text: 'dogs',
       image: 'TBD',
     },
     {
       id: 2,
-      amount: 29,
+      amount: amountOfCats,
       text: 'cats',
       image: 'TBD',
     },

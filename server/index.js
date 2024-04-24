@@ -29,9 +29,9 @@ app.get('/pets', (req, res) => {
         res.send(item.val().map((pet, index) => ({
             ...pet,
             name: pet.name ?? "Test name " + (index + 1),
-            age: Math.floor(Math.random() * 10),
-            size: ["s", "m", "l", "xl"][Math.floor(Math.random() * 3)],
-            type: ["cat", "dog", "other"][Math.floor(Math.random() * 2)]
+            age: pet.age?? Math.floor(Math.random() * 10),
+            size: pet.size ?? ["s", "m", "l", "xl"][Math.floor(Math.random() * 3)],
+            type: pet.type ?? ["cat", "dog", "other"][Math.floor(Math.random() * 2)]
         })));
     })
 })

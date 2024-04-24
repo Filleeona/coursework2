@@ -5,11 +5,7 @@ import { useEffect } from 'react';
 export default function SizeSelect({ setSizes }) {
   const { pets } = useSelector((root) => root.app);
 
-  if (!pets) {
-    return <div>Loading</div>;
-  }
-
-  const sizes = Array.from(new Set(pets.map((pet) => pet.size)));
+  const sizes = ['s', 'm', 'l'];
 
   useEffect(() => {
     setSizes(sizes);
@@ -19,9 +15,13 @@ export default function SizeSelect({ setSizes }) {
     setSizes(event);
   };
 
+  if (!pets) {
+    return <div>Loading</div>;
+  }
+
   return (
     <div>
-      <h3 className="h3">Category</h3>
+      <h3 className="h3">Size</h3>
       <div>
         <CheckboxGroup
           colorScheme="green"

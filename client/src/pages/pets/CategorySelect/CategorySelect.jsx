@@ -5,11 +5,7 @@ import { useEffect } from 'react';
 export default function CategorySelect({ setCategories }) {
   const { pets } = useSelector((root) => root.app);
 
-  if (!pets) {
-    return <div>Loading</div>;
-  }
-
-  const categories = Array.from(new Set(pets.map((pet) => pet.type)));
+  const categories = ['cat', 'dog'];
 
   useEffect(() => {
     setCategories(categories);
@@ -18,6 +14,10 @@ export default function CategorySelect({ setCategories }) {
   const onChange = (event) => {
     setCategories(event);
   };
+
+  if (!pets) {
+    return <div>Loading</div>;
+  }
 
   return (
     <div>
