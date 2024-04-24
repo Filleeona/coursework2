@@ -1,4 +1,3 @@
-import Heading3 from '../../../components/Heading3.jsx';
 import { OurStatisticContainer, OurStatisticContentWrapper } from './styled.js';
 import StatisticItem from './StatisticItem/StatisticItem.jsx';
 
@@ -26,7 +25,7 @@ export default function OurStatistic() {
 
   return (
     <OurStatisticContainer>
-      <Heading3>Our statistic</Heading3>
+      <h3 className="h3">Our statistic</h3>
       <OurStatisticContentWrapper>
         {statistics.map((item) => (
           <StatisticItem

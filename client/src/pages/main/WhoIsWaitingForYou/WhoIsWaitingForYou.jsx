@@ -6,7 +6,6 @@ import {
   WhoIsWaitingGridItem,
   WhoIsWaitingHeadingContainer,
 } from './styled.js';
-import Heading3 from '../../../components/Heading3.jsx';
 
 export default function WhoIsWaitingForYou({ onAdopt }) {
   const { pets } = useSelector((root) => root.app);
@@ -17,10 +16,10 @@ export default function WhoIsWaitingForYou({ onAdopt }) {
   return (
     <WhoIsWaitingForYouContainer>
       <WhoIsWaitingHeadingContainer>
-        <Heading3>Who is waiting for you?</Heading3>
-        <Text>
+        <h2 className="h2">Who is waiting for you?</h2>
+        <h3 className="h3">
           If you want to know more about a pet, just click on its box.
-        </Text>
+        </h3>
       </WhoIsWaitingHeadingContainer>
       <WhoIsWaitingGridContainer>
         {preparedPets.map((pet, index) => (

@@ -5,7 +5,6 @@ import {
   FindYourPetImage,
   FindYourPetWrapper,
 } from './styled.js';
-import Heading3 from '../../../components/Heading3.jsx';
 
 export default function FindYourPet({ onAdopt }) {
   return (
@@ -13,7 +12,9 @@ export default function FindYourPet({ onAdopt }) {
       <FindYourPetWrapper>
         <FindYourPetImage bgImage={`url('/maincat3.jpg')`} />
         <FindYourPetContent>
-          <Heading3 color="white">Find your pet</Heading3>
+          <h1 className="h1" color="white">
+            Find your pet
+          </h1>
           <Text color="white">
             In our shelter there are several pets who wait only for you. They
             wait a lovely family and a cozy home. Please help them to find a new

@@ -28,7 +28,10 @@ app.get('/pets', (req, res) => {
     db.ref('pets/').once('value', (item) => {
         res.send(item.val().map((pet, index) => ({
             ...pet,
-            name: pet.name ?? "Test name " + (index + 1)
+            name: pet.name ?? "Test name " + (index + 1),
+            age: Math.floor(Math.random() * 10),
+            size: ["s", "m", "l", "xl"][Math.floor(Math.random() * 3)],
+            type: ["cat", "dog", "other"][Math.floor(Math.random() * 2)]
         })));
     })
 })
