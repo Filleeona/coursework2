@@ -1,6 +1,7 @@
 import { useSelector } from 'react-redux';
 import { Checkbox, CheckboxGroup, Stack } from '@chakra-ui/react';
 import { useEffect } from 'react';
+import { Category } from '../../../constants.js';
 
 export default function CategorySelect({ setCategories }) {
   const { pets } = useSelector((root) => root.app);
@@ -29,9 +30,9 @@ export default function CategorySelect({ setCategories }) {
           onChange={onChange}
         >
           <Stack spacing={[1, 5]} direction={['column', 'row']}>
-            {categories.map((size) => (
-              <Checkbox value={size} key={size}>
-                {size}
+            {categories.map((category) => (
+              <Checkbox value={category} key={category}>
+                {Category[category]}
               </Checkbox>
             ))}
           </Stack>

@@ -1,6 +1,7 @@
 import { useSelector } from 'react-redux';
 import { Checkbox, CheckboxGroup, Stack } from '@chakra-ui/react';
 import { useEffect } from 'react';
+import { Size } from '../../../constants.js';
 
 export default function SizeSelect({ setSizes }) {
   const { pets } = useSelector((root) => root.app);
@@ -31,7 +32,7 @@ export default function SizeSelect({ setSizes }) {
           <Stack spacing={[1, 5]} direction={['column', 'row']}>
             {sizes.map((size) => (
               <Checkbox value={size} key={size}>
-                {size}
+                {Size[size]}
               </Checkbox>
             ))}
           </Stack>
