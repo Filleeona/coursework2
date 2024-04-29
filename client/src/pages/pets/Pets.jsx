@@ -66,7 +66,9 @@ export default function Pets() {
           <SizeSelect setSizes={setSizes} />
         </InputsColumn>
         <PetsColumn>
-          <PetsColumnHeading className="h2">Pets</PetsColumnHeading>
+          <PetsColumnHeading className="h2">
+            Here are our cuties
+          </PetsColumnHeading>
 
           {preparedPets.length === 0 ? (
             <div>No pets according to these params!</div>

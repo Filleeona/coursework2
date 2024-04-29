@@ -24,8 +24,8 @@ export const WhoIsWaitingGridContainer = styled.div`
 `;
 
 export const WhoIsWaitingGridItem = styled(Box)`
-  width: 10rem;
-  height: 8rem;
+  width: 20rem;
+  height: 16rem;
   border-radius: 1rem;
   display: flex;
   justify-content: center;
@@ -36,4 +36,5 @@ export const WhoIsWaitingGridItem = styled(Box)`
   font-weight: 600;
   color: white;
   font-size: 1.25rem;
+  box-shadow: 0px 0px 5px 0px rgba(0, 0, 0, 0.5);
 `;

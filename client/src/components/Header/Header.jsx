@@ -11,6 +11,10 @@ import { HeaderContainer } from './styled.js';
 export default function Header() {
   const location = useLocation();
 
+  const isHome = location.pathname === '/';
+  const isPets = location.pathname === '/pets';
+  const isHelp = location.pathname === '/help';
+
   return (
     <HeaderContainer>
       <Box boxSize="2.5rem">
@@ -22,9 +26,9 @@ export default function Header() {
             <BreadcrumbLink
               href="/"
               textDecoration="none"
-              color={location.pathname === '/' ? 'teal.500' : 'black.500'}
+              color={isHome ? 'brand.500' : 'black.500'}
             >
-              Home
+              {isHome ? <b>Home</b> : 'Home'}
             </BreadcrumbLink>
           </BreadcrumbItem>
 
@@ -32,9 +36,9 @@ export default function Header() {
             <BreadcrumbLink
               href="/pets"
               textDecoration="none"
-              color={location.pathname === '/pets' ? 'teal.500' : 'black.500'}
+              color={location.pathname === '/pets' ? 'brand.500' : 'black.500'}
             >
-              Pets
+              {isPets ? <b>Pets</b> : 'Pets'}
             </BreadcrumbLink>
           </BreadcrumbItem>
 
@@ -42,9 +46,9 @@ export default function Header() {
             <BreadcrumbLink
               href="/help"
               textDecoration="none"
-              color={location.pathname === '/help' ? 'teal.500' : 'black.500'}
+              color={location.pathname === '/help' ? 'brand.500' : 'black.500'}
             >
-              Help
+              {isHelp ? <b>Help</b> : 'Help'}
             </BreadcrumbLink>
           </BreadcrumbItem>
         </Breadcrumb>

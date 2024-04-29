@@ -25,17 +25,15 @@ app.get('/', (req, res) => {
 })
 
 app.get('/pets', (req, res) => {
-    db.ref('pets/0').once('value', (item) => {
-        const pet = item.val();
-
-        // res.send(item.val().map((pet, index) => ({
-        res.send([{
+    db.ref('pets').limitToFirst(6).once('value', (item) => {
+        res.send(item.val().map((pet, index) => ({
+        // res.send([{
             ...pet,
             name: pet.name ?? "Test name",
             age: pet.age?? Math.floor(Math.random() * 10),
             size: pet.size ?? ["s", "m", "l", "xl"][Math.floor(Math.random() * 3)],
             type: pet.type ?? ["cat", "dog", "other"][Math.floor(Math.random() * 2)]
-        }]);
+        })))
     })
 })
 
@@ -43,17 +41,22 @@ app.listen(SERVER_PORT, () => {
     console.log(`Server is running on port ${SERVER_PORT}`)
 })
 
-// Used for photo uploading.
+// // Used for photo uploading.
 // const path = require('path');
 // const fs = require('fs');
 //
-// const directoryPath = path.join(__dirname, 'images');
+// // const directoryPath = path.join(__dirname, 'images');
 //
 // function base64_encode(file) {
 //     const bitmap = fs.readFileSync(file);
 //     return new Buffer(bitmap).toString('base64');
 // }
 //
+// const base64 = base64_encode(path.join('new_images', 'dog14.jpg'));
+// console.log(base64)
+//
+// db.ref(`/pets/28/photo`).set(`data:image/jpeg;base64,${base64}`)
+
 // fs.readdir(directoryPath, function (err, files) {
 //     if (err) {
 //         return console.log('Unable to scan directory: ' + err);

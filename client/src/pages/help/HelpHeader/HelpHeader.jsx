@@ -7,7 +7,7 @@ export default function HelpHeader() {
       <HelpHeaderHeading className="h2">
         Adopt a pet, help us!
       </HelpHeaderHeading>
-      <Button borderRadius="20px" colorScheme="teal">
+      <Button borderRadius="20px" colorScheme="brand">
         View pets!
       </Button>
     </HelpHeaderContainer>

@@ -8,5 +8,5 @@ export const HeaderContainer = styled.header`
   display: flex;
   align-items: center;
   padding: 1rem;
-  gap: 0.5rem;
+  gap: 1.5rem;
 `;

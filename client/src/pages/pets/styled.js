@@ -33,7 +33,7 @@ export const InputsColumn = styled.div`
 export const PetsColumn = styled.div`
   display: flex;
   flex-direction: column;
-  gap: 2rem;
+  gap: 1rem;
 `;
 
 export const PetsColumnHeading = styled.h2`

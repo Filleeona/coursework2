@@ -6,8 +6,9 @@ const StatisticItemContainer = styled.div`
   flex-direction: column;
   justify-content: center;
   align-items: center;
-  padding: 1rem 1rem 0.5rem 1rem;
-  border: 1px solid black;
+  padding: 1rem 2rem 0.5rem;
+  border-radius: 20px;
+  box-shadow: 0px 0px 5px 0px rgba(0, 0, 0, 0.5);
 `;
 
 const StatisticImage = styled(Image)`
@@ -18,7 +19,7 @@ const StatisticImage = styled(Image)`
 export default function StatisticItem({ amount, text, image }) {
   return (
     <StatisticItemContainer>
-      <StatisticImage />
+      <StatisticImage src={image} />
       <Text as="b" marginTop="1rem" size="l">
         {amount}
       </Text>

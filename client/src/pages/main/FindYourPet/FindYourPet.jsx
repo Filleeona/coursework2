@@ -20,7 +20,7 @@ export default function FindYourPet({ onAdopt }) {
             wait a lovely family and a cozy home. Please help them to find a new
             family, who will love them!
           </Text>
-          <Button borderRadius="20px" colorScheme="teal" onClick={onAdopt}>
+          <Button borderRadius="20px" colorScheme="brand" onClick={onAdopt}>
             Let&apos;s Adopt
           </Button>
         </FindYourPetContent>

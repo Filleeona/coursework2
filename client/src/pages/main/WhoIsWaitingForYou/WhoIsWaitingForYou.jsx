@@ -1,4 +1,4 @@
-import { Button, Text } from '@chakra-ui/react';
+import { Button } from '@chakra-ui/react';
 import { useSelector } from 'react-redux';
 import {
   WhoIsWaitingForYouContainer,
@@ -31,9 +31,9 @@ export default function WhoIsWaitingForYou({ onAdopt }) {
       <Button
         marginTop="2rem"
         borderRadius="20px"
-        padding="1rem 2rem"
-        colorScheme="teal"
+        padding="1rem 5rem"
         onClick={onAdopt}
+        colorScheme="brand"
       >
         More
       </Button>

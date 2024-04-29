@@ -6,7 +6,7 @@ export default function AdoptBestFriend() {
     <AdoptBestFriendContainer>
       <h1 className="h1">Adopt a best friend</h1>
       <AdoptBestFriendsButtons>
-        <Button borderRadius="20px" colorScheme="teal">
+        <Button borderRadius="20px" colorScheme="brand">
           Do it now!
         </Button>
       </AdoptBestFriendsButtons>

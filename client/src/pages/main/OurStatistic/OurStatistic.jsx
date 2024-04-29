@@ -13,19 +13,19 @@ export default function OurStatistic() {
       id: 1,
       amount: amountOfDogs,
       text: 'dogs',
-      image: 'TBD',
+      image: '/svg/dog.svg',
     },
     {
       id: 2,
       amount: amountOfCats,
       text: 'cats',
-      image: 'TBD',
+      image: '/svg/cat.svg',
     },
     {
       id: 4,
       amount: 231,
       text: 'adopted',
-      image: 'TBD',
+      image: '/svg/pet-shelter.svg',
     },
   ];
 
