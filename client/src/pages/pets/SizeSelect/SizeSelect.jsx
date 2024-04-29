@@ -25,9 +25,9 @@ export default function SizeSelect({ setSizes }) {
       <h3 className="h3">Size</h3>
       <div>
         <CheckboxGroup
-          colorScheme="green"
           defaultValue={sizes}
           onChange={onChange}
+          colorScheme="brand"
         >
           <Stack spacing={[1, 5]} direction={['column', 'row']}>
             {sizes.map((size) => (

@@ -19,7 +19,7 @@ export default function AgeRange({ age, setAge }) {
   }, []);
 
   const preparedCurrentValueDisplay =
-    age[0] === age[1] ? age[0] : age.join('-');
+    age[0] === age[1] ? age[0] : age.join(' - ');
 
   const onChangeAge = (event) => {
     setAge(event);
@@ -30,7 +30,7 @@ export default function AgeRange({ age, setAge }) {
       <h3 className="h3">Age Range</h3>
       <RangeSlider
         aria-label={['min', 'max']}
-        colorScheme="pink"
+        colorScheme="brand"
         defaultValue={[minAge, maxAge]}
         min={minAge}
         max={maxAge}

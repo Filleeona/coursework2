@@ -21,12 +21,16 @@ export const InputsColumn = styled.div`
   display: flex;
   flex-direction: column;
   gap: 2rem;
-  margin-top: 7rem;
+  margin-top: 1.5rem;
 
   & > * {
-    box-shadow: 0px 0px 5px 0px rgba(0, 0, 0, 0.5);
     padding: 1rem;
-    border-radius: 20px;
+    //background: rgba(0, 0, 0, 0.07);
+    box-shadow: 0px 0px 3px 0px rgba(0, 0, 0, 0.3);
+    height: 10rem;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
   }
 `;
 

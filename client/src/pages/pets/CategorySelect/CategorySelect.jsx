@@ -31,7 +31,7 @@ export default function CategorySelect({ setCategories }) {
         >
           <Stack spacing={[1, 5]} direction={['column', 'row']}>
             {categories.map((category) => (
-              <Checkbox value={category} key={category}>
+              <Checkbox value={category} key={category} colorScheme="brand">
                 {Category[category]}
               </Checkbox>
             ))}
