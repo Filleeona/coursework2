@@ -1,8 +1,10 @@
 import styled from 'styled-components';
 
 export const HelpHeaderContainer = styled.div`
-  background: url('https://www.petprofessionalguild.com/wp-content/uploads/2023/01/canstockphoto10172801.jpg')
-    right top no-repeat;
+  background:
+    linear-gradient(rgba(0, 0, 0, 0.3), rgba(0, 0, 0, 0), rgba(0, 0, 0, 0.3)),
+    url('https://www.petprofessionalguild.com/wp-content/uploads/2023/01/canstockphoto10172801.jpg')
+      right top no-repeat;
   width: 100%;
   height: 30rem;
   display: flex;
