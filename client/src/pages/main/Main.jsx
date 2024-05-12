@@ -1,4 +1,4 @@
-import { useDispatch } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import { useEffect } from 'react';
 import { Wrapper } from './styled.js';
 import { fetchPets } from '../../features/app/appReducer.js';
@@ -10,9 +10,12 @@ import OurStatistic from './OurStatistic/OurStatistic.jsx';
 
 export default function Main() {
   const dispatch = useDispatch();
+  const { pets } = useSelector((root) => root.app);
 
   useEffect(() => {
-    dispatch(fetchPets());
+    if (!pets.length) {
+      dispatch(fetchPets());
+    }
   }, []);
 
   const navigate = useNavigate();
