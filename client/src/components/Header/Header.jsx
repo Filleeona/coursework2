@@ -1,12 +1,7 @@
 import { useLocation } from 'react-router-dom';
-import {
-  Box,
-  Image,
-  Breadcrumb,
-  BreadcrumbItem,
-  BreadcrumbLink,
-} from '@chakra-ui/react';
+import { Box, Image, Breadcrumb, BreadcrumbItem } from '@chakra-ui/react';
 import { HeaderContainer } from './styled.js';
+import BreadcrumbItemLink from '../BreadcrumbItem/BreadcrumbItemLink.jsx';
 
 export default function Header() {
   const location = useLocation();
@@ -23,33 +18,27 @@ export default function Header() {
       <div>
         <Breadcrumb separator="">
           <BreadcrumbItem>
-            <BreadcrumbLink
-              href="/"
-              textDecoration="none"
-              color={isHome ? 'brand.500' : 'black.500'}
-            >
+            <BreadcrumbItemLink to="/" color={isHome ? 'brand.500' : 'black'}>
               {isHome ? <b>Home</b> : 'Home'}
-            </BreadcrumbLink>
+            </BreadcrumbItemLink>
           </BreadcrumbItem>
 
           <BreadcrumbItem>
-            <BreadcrumbLink
-              href="/pets"
-              textDecoration="none"
-              color={location.pathname === '/pets' ? 'brand.500' : 'black.500'}
+            <BreadcrumbItemLink
+              to="/pets"
+              color={location.pathname === '/pets' ? 'brand.500' : 'black'}
             >
               {isPets ? <b>Pets</b> : 'Pets'}
-            </BreadcrumbLink>
+            </BreadcrumbItemLink>
           </BreadcrumbItem>
 
           <BreadcrumbItem>
-            <BreadcrumbLink
-              href="/help"
-              textDecoration="none"
-              color={location.pathname === '/help' ? 'brand.500' : 'black.500'}
+            <BreadcrumbItemLink
+              to="/help"
+              color={location.pathname === '/help' ? 'brand.500' : 'black'}
             >
               {isHelp ? <b>Help</b> : 'Help'}
-            </BreadcrumbLink>
+            </BreadcrumbItemLink>
           </BreadcrumbItem>
         </Breadcrumb>
       </div>

@@ -24,7 +24,9 @@ export default function Pets() {
     useFilters();
 
   useEffect(() => {
-    dispatch(fetchPets());
+    if (!pets.length) {
+      dispatch(fetchPets());
+    }
   }, []);
 
   const preparedPets = useMemo(() => {
