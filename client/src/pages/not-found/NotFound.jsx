@@ -23,11 +23,11 @@ export default function NotFound() {
         </Text>
       </div>
       <Button colorScheme="brand" borderRadius="20px" onClick={onBack}>
-        Go Back
+        Go Home
       </Button>
 
       <Box boxSize="sm">
-        <Image src="/kitten1.jpg" />
+        <Image src="images/kitten1.jpg" />
       </Box>
     </Wrapper>
   );

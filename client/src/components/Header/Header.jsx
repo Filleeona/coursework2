@@ -13,12 +13,15 @@ export default function Header() {
   return (
     <HeaderContainer>
       <Box boxSize="2.5rem">
-        <Image src="/logo2.png" />
+        <Image src="images/logo2.png" />
       </Box>
       <div>
-        <Breadcrumb separator="">
+        <Breadcrumb separator="" spacing="1rem">
           <BreadcrumbItem>
-            <BreadcrumbItemLink to="/" color={isHome ? 'brand.500' : 'black'}>
+            <BreadcrumbItemLink
+              to="/"
+              color={isHome ? 'brand.500' : 'gray.600'}
+            >
               {isHome ? <b>Home</b> : 'Home'}
             </BreadcrumbItemLink>
           </BreadcrumbItem>
@@ -26,7 +29,7 @@ export default function Header() {
           <BreadcrumbItem>
             <BreadcrumbItemLink
               to="/pets"
-              color={location.pathname === '/pets' ? 'brand.500' : 'black'}
+              color={location.pathname === '/pets' ? 'brand.500' : 'gray.600'}
             >
               {isPets ? <b>Pets</b> : 'Pets'}
             </BreadcrumbItemLink>
@@ -35,7 +38,7 @@ export default function Header() {
           <BreadcrumbItem>
             <BreadcrumbItemLink
               to="/help"
-              color={location.pathname === '/help' ? 'brand.500' : 'black'}
+              color={location.pathname === '/help' ? 'brand.500' : 'gray.600'}
             >
               {isHelp ? <b>Help</b> : 'Help'}
             </BreadcrumbItemLink>

@@ -10,7 +10,7 @@ export default function FindYourPet({ onAdopt }) {
   return (
     <FindYourPetContainer>
       <FindYourPetWrapper>
-        <FindYourPetImage bgImage={`url('/maincat3.jpg')`} />
+        <FindYourPetImage bgImage={`url('images/maincat3.jpg')`} />
         <FindYourPetContent>
           <h1 className="h1" color="white">
             Find your pet

@@ -12,10 +12,10 @@ import PetItem from './PetItem/PetItem.jsx';
 import { useEffect, useMemo } from 'react';
 import { fetchPets } from '../../features/app/appReducer.js';
 import AdoptBestFriend from './AdoptBestFriend/AdoptBestFriend.jsx';
-import AgeRange from './AgeRange/AgeRange.jsx';
-import CategorySelect from './CategorySelect/CategorySelect.jsx';
+import AgeRange from './Filters/AgeRange/AgeRange.jsx';
+import CategorySelect from './Filters/CategorySelect/CategorySelect.jsx';
 import useFilters from './useFilters.js';
-import SizeSelect from './SizeSelect/SizeSelect.jsx';
+import SizeSelect from './Filters/SizeSelect/SizeSelect.jsx';
 
 export default function Pets() {
   const { pets } = useSelector((root) => root.app);

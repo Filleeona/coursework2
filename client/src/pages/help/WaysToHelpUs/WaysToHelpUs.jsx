@@ -39,7 +39,7 @@ export default function WaysToHelpUs() {
     <WaysToHelpUsContainer>
       <WaysToHelpUsHeading className="h2">Ways to help us</WaysToHelpUsHeading>
       <WaysToHelpUsGridContainer>
-        <WaysToHelpUsImage src="/cat-and-dog.avif" />
+        <WaysToHelpUsImage src="images/cat-and-dog.avif" />
         {waysToHelpUsItems.map((item) => (
           <WaysToHelpUsItem
             text={item.text}

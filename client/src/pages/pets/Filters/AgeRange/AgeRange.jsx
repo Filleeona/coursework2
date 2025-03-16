@@ -5,8 +5,13 @@ import {
   RangeSliderTrack,
 } from '@chakra-ui/react';
 import { useSelector } from 'react-redux';
-import { AgeRangeLabelContainer, CustomSliderThumb } from './styled.js';
 import { useEffect } from 'react';
+import {
+  BaseContainer,
+  BaseTitle,
+  LabelContainer,
+  CustomSliderThumb,
+} from '../styled.js';
 
 export default function AgeRange({ age, setAge }) {
   const { pets } = useSelector((root) => root.app);
@@ -26,8 +31,8 @@ export default function AgeRange({ age, setAge }) {
   };
 
   return (
-    <div>
-      <h3 className="h3">Age Range</h3>
+    <BaseContainer>
+      <BaseTitle>Age Range</BaseTitle>
       <RangeSlider
         aria-label={['min', 'max']}
         colorScheme="brand"
@@ -36,8 +41,8 @@ export default function AgeRange({ age, setAge }) {
         max={maxAge}
         onChange={onChangeAge}
       >
-        <RangeSliderTrack>
-          <RangeSliderFilledTrack />
+        <RangeSliderTrack bg="#e5e7eb">
+          <RangeSliderFilledTrack bg="#4a90e2" />
         </RangeSliderTrack>
         <RangeSliderThumb index={0}>
           <CustomSliderThumb />
@@ -46,11 +51,11 @@ export default function AgeRange({ age, setAge }) {
           <CustomSliderThumb />
         </RangeSliderThumb>
       </RangeSlider>
-      <AgeRangeLabelContainer>
+      <LabelContainer>
         <span>{minAge}</span>
         <span>{preparedCurrentValueDisplay}</span>
         <span>{maxAge}</span>
-      </AgeRangeLabelContainer>
-    </div>
+      </LabelContainer>
+    </BaseContainer>
   );
 }

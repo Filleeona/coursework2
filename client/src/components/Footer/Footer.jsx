@@ -9,7 +9,7 @@ export default function Footer() {
   return (
     <FooterContainer>
       <FooterColumn>
-        <Image src="/logo2.png" height="8rem" />
+        <Image src="images/logo2.png" height="8rem" />
       </FooterColumn>
       <FooterColumn>
         <Heading fontSize="l" color="white" marginBottom="1rem">
