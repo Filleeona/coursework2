@@ -4,8 +4,9 @@ export const AdoptBestFriendContainer = styled.div`
   display: flex;
   flex-direction: column;
   height: 25rem;
-  background: linear-gradient(rgba(0, 0, 0, 0.3), rgba(0, 0, 0, 0.3)),
-    url('https://www.freewebheaders.com/wp-content/gallery/dogs/bernese-mountain-dog-in-swiss-alps-mountain-web-header.jpg');
+  background:
+    linear-gradient(rgba(0, 0, 0, 0.3), rgba(0, 0, 0, 0.3)),
+    url('/pets_backgrund.jpg') center;
   justify-content: center;
   align-items: center;
   background-size: cover;
