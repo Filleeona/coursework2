@@ -31,10 +31,19 @@ export const WhoIsWaitingGridItem = styled(Box)`
   justify-content: center;
   align-items: flex-end;
   padding-bottom: 0.5rem;
+  background-image: url(${(props) => props.backgroundImage});
   background-position: center center;
   background-size: cover;
-  font-weight: 600;
-  color: white;
-  font-size: 1.25rem;
   box-shadow: 0px 0px 5px 0px rgba(0, 0, 0, 0.5);
+
+  & span {
+    color: white;
+    font-weight: 600;
+    font-size: 1.25rem;
+    text-shadow: 0 0 8px rgba(0, 0, 0, 0.8);
+    background-color: rgba(0, 0, 0, 0.3);
+    padding: 4px 8px;
+    border-radius: 15px;
+    display: inline-block;
+  }
 `;

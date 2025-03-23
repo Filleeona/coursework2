@@ -3,7 +3,8 @@ import styled from 'styled-components';
 export const AdoptBestFriendContainer = styled.div`
   display: flex;
   flex-direction: column;
-  height: 25rem;
+  width: 100%;
+  height: 27rem;
   background:
     linear-gradient(rgba(0, 0, 0, 0.3), rgba(0, 0, 0, 0.3)),
     url('/images/pets_backgrund.jpg') center;

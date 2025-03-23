@@ -6,6 +6,7 @@ import {
   WaysToHelpUsImage,
 } from './styled.js';
 import WaysToHelpUsItem from './WaysToHelpUsItem/WaysToHelpUsItem.jsx';
+import { motion } from 'framer-motion'; // Import Framer Motion
 
 export default function WaysToHelpUs() {
   const waysToHelpUsItems = [
@@ -35,17 +36,33 @@ export default function WaysToHelpUs() {
     },
   ];
 
+  // Animation variants for hover effect
+  const itemVariants = {
+    initial: { scale: 1, y: 0 },
+    hover: {
+      scale: 1.05, // Slight scale increase
+      y: -5, // Slight lift upward
+      transition: {
+        duration: 0.3,
+        ease: 'easeOut',
+      },
+    },
+  };
+
   return (
     <WaysToHelpUsContainer>
       <WaysToHelpUsHeading className="h2">Ways to help us</WaysToHelpUsHeading>
       <WaysToHelpUsGridContainer>
         <WaysToHelpUsImage src="images/cat-and-dog.avif" />
         {waysToHelpUsItems.map((item) => (
-          <WaysToHelpUsItem
-            text={item.text}
-            heading={item.heading}
+          <motion.div
             key={item.heading}
-          />
+            initial="initial"
+            whileHover="hover" // Trigger animation on hover
+            variants={itemVariants}
+          >
+            <WaysToHelpUsItem text={item.text} heading={item.heading} />
+          </motion.div>
         ))}
       </WaysToHelpUsGridContainer>
       <WaysToHelpUsCommonInfo>

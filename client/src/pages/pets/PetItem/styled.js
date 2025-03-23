@@ -9,7 +9,7 @@ export const PetItemContainer = styled.div`
   margin-bottom: 1rem;
   transition: transform 0.2s ease-in-out;
   text-align: center;
-  max-width: 300px; /* Consistent width for a card-like layout */
+  max-width: 450px;
   display: flex;
   flex-direction: column;
   align-items: center;

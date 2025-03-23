@@ -16,4 +16,5 @@ export const HelpHeaderContainer = styled.div`
 export const HelpHeaderHeading = styled.h2`
   color: black;
   text-align: left;
+  margin-bottom: 1rem;
 `;

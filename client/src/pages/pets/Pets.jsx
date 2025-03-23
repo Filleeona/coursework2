@@ -9,25 +9,27 @@ import {
 } from './styled.js';
 import { useDispatch, useSelector } from 'react-redux';
 import PetItem from './PetItem/PetItem.jsx';
-import { useEffect, useMemo } from 'react';
+import { useEffect, useMemo, useState } from 'react';
 import { fetchPets } from '../../features/app/appReducer.js';
 import AdoptBestFriend from './AdoptBestFriend/AdoptBestFriend.jsx';
 import AgeRange from './Filters/AgeRange/AgeRange.jsx';
 import CategorySelect from './Filters/CategorySelect/CategorySelect.jsx';
 import useFilters from './useFilters.js';
 import SizeSelect from './Filters/SizeSelect/SizeSelect.jsx';
+import { Box, Button, Collapse } from '@chakra-ui/react';
 
 export default function Pets() {
   const { pets } = useSelector((root) => root.app);
   const dispatch = useDispatch();
   const { age, sizes, categories, setAge, setSizes, setCategories } =
     useFilters();
+  const [showFilters, setShowFilters] = useState(false);
 
   useEffect(() => {
     if (!pets.length) {
       dispatch(fetchPets());
     }
-  }, []);
+  }, [dispatch, pets.length]);
 
   const preparedPets = useMemo(() => {
     return pets.filter((pet) => {
@@ -38,40 +40,51 @@ export default function Pets() {
       ) {
         return false;
       }
-
-      if (!categories.length || !categories.includes(pet.type)) {
+      if (categories.length > 0 && !categories.includes(pet.type)) {
         return false;
       }
-
-      if (!sizes.length || !sizes.includes(pet.size)) {
+      if (sizes.length > 0 && !sizes.includes(pet.size)) {
         return false;
       }
-
       return true;
     });
   }, [pets, age, sizes, categories]);
 
   if (!pets.length) {
-    return <div>Loading</div>;
+    return <div>Loading...</div>;
   }
 
   return (
     <PetsContainer>
       <AdoptBestFriend />
       <ColumnsContainer>
-        <InputsColumn>
-          <AgeRange age={age} setAge={setAge} />
-          <CategorySelect
-            categories={categories}
-            setCategories={setCategories}
-          />
-          <SizeSelect setSizes={setSizes} />
-        </InputsColumn>
+        <Box mb="15px">
+          <Button
+            onClick={() => setShowFilters(!showFilters)}
+            colorScheme="brand"
+            size="md"
+            borderRadius="20px"
+            width="8rem"
+          >
+            {showFilters ? 'Hide Filters' : 'Filter Pets'}
+          </Button>
+        </Box>
+
+        <Collapse in={showFilters} animateOpacity>
+          <InputsColumn>
+            <AgeRange age={age} setAge={setAge} />
+            <CategorySelect
+              categories={categories}
+              setCategories={setCategories}
+            />
+            <SizeSelect setSizes={setSizes} />
+          </InputsColumn>
+        </Collapse>
+
         <PetsColumn>
           <PetsColumnHeading className="h2">
-            Here are our cuties
+            Here are our pets
           </PetsColumnHeading>
-
           {preparedPets.length === 0 ? (
             <div>No pets according to these params!</div>
           ) : (

@@ -12,6 +12,7 @@ export default function AdoptBestFriend() {
         <Button
           borderRadius="20px"
           colorScheme="brand"
+          mt="15px"
           onClick={() => navigate('/help', { replace: true })}
         >
           Do it now!

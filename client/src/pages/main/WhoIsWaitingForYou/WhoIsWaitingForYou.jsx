@@ -1,5 +1,7 @@
 import { Button } from '@chakra-ui/react';
 import { useSelector } from 'react-redux';
+import { motion, useInView } from 'framer-motion';
+import { useRef } from 'react'; // useEffect не нужен, убираем
 import {
   WhoIsWaitingForYouContainer,
   WhoIsWaitingGridContainer,
@@ -13,6 +15,30 @@ export default function WhoIsWaitingForYou({ onAdopt }) {
   clonedPets.sort(() => Math.random() - 0.5);
   const preparedPets = clonedPets.slice(0, 6);
 
+  // Варианты анимации для имени
+  const nameVariants = {
+    hidden: { opacity: 0, y: 20 },
+    visible: { opacity: 1, y: 0, transition: { duration: 1 } },
+  };
+
+  // Компонент для элемента с анимацией по видимости
+  const GridItemWithAnimation = ({ pet, index }) => {
+    const ref = useRef(null);
+    const isInView = useInView(ref, { margin: '0px 0px -100px 0px' });
+
+    return (
+      <WhoIsWaitingGridItem ref={ref} backgroundImage={pet.photo} key={index}>
+        <motion.span
+          variants={nameVariants}
+          initial="hidden"
+          animate={isInView ? 'visible' : 'hidden'} // Анимация зависит от видимости
+        >
+          {pet.name}
+        </motion.span>
+      </WhoIsWaitingGridItem>
+    );
+  };
+
   return (
     <WhoIsWaitingForYouContainer>
       <WhoIsWaitingHeadingContainer>
@@ -23,9 +49,7 @@ export default function WhoIsWaitingForYou({ onAdopt }) {
       </WhoIsWaitingHeadingContainer>
       <WhoIsWaitingGridContainer>
         {preparedPets.map((pet, index) => (
-          <WhoIsWaitingGridItem backgroundImage={pet.photo} key={index}>
-            {pet.name}
-          </WhoIsWaitingGridItem>
+          <GridItemWithAnimation pet={pet} index={index} />
         ))}
       </WhoIsWaitingGridContainer>
       <Button
