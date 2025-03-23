@@ -9,6 +9,7 @@ import {
 } from './styled.js';
 import { useDispatch, useSelector } from 'react-redux';
 import PetItem from './PetItem/PetItem.jsx';
+import PetModal from './PetModal/PetModal.jsx';
 import { useEffect, useMemo, useState } from 'react';
 import { fetchPets } from '../../features/app/appReducer.js';
 import AdoptBestFriend from './AdoptBestFriend/AdoptBestFriend.jsx';
@@ -24,6 +25,7 @@ export default function Pets() {
   const { age, sizes, categories, setAge, setSizes, setCategories } =
     useFilters();
   const [showFilters, setShowFilters] = useState(false);
+  const [selectedPet, setSelectedPet] = useState(null);
 
   useEffect(() => {
     if (!pets.length) {
@@ -43,12 +45,18 @@ export default function Pets() {
       if (categories.length > 0 && !categories.includes(pet.type)) {
         return false;
       }
-      if (sizes.length > 0 && !sizes.includes(pet.size)) {
-        return false;
-      }
-      return true;
+      return !(sizes.length > 0 && !sizes.includes(pet.size));
     });
   }, [pets, age, sizes, categories]);
+
+  const openPetModal = (pet) => {
+    console.log('Opening modal for:', pet);
+    setSelectedPet(pet);
+  };
+
+  const closePetModal = () => {
+    setSelectedPet(null);
+  };
 
   if (!pets.length) {
     return <div>Loading...</div>;
@@ -90,12 +98,23 @@ export default function Pets() {
           ) : (
             <PetsGridContainer>
               {preparedPets.map((pet) => (
-                <PetItem pet={pet} key={pet.name} />
+                <PetItem
+                  pet={pet}
+                  key={pet.name}
+                  onClick={() => openPetModal(pet)} // Pass click handler
+                />
               ))}
             </PetsGridContainer>
           )}
         </PetsColumn>
       </ColumnsContainer>
+
+      <PetModal
+        isOpen={!!selectedPet}
+        onClose={closePetModal}
+        pet={selectedPet}
+      />
+
       <PetsVideoContainer>
         <iframe
           src="https://www.youtube-nocookie.com/embed/y0sF5xhGreA"

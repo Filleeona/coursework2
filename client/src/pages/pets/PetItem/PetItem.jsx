@@ -7,9 +7,9 @@ import {
 } from './styled.js';
 import { Size } from '../../../constants.js';
 
-export default function PetItem({ pet }) {
+export default function PetItem({ pet, onClick }) {
   return (
-    <PetItemContainer>
+    <PetItemContainer onClick={onClick}>
       <PetImage src={pet.photo} alt={pet.name} />
       <PetItemHeading>{pet.name}</PetItemHeading>
       <PetDescription>{pet.description}</PetDescription>
