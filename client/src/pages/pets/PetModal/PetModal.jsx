@@ -15,9 +15,21 @@ import {
   ModalContent as ChakraModalContent,
 } from '@chakra-ui/react';
 import { Size } from '../../../constants.js';
+import SimilarPetsFilter from '../Filters/SimilarPets/SimilarPetsFilter.jsx';
 
-export default function PetModal({ isOpen, onClose, pet }) {
+export default function PetModal({
+  isOpen,
+  onClose,
+  pet,
+  onToggleSimilarPets,
+  showSimilarPets,
+}) {
   if (!pet) return null;
+
+  const handleToggleSimilarPets = () => {
+    onToggleSimilarPets();
+    onClose();
+  };
 
   return (
     <Modal isOpen={isOpen} onClose={onClose} isCentered>
@@ -30,6 +42,7 @@ export default function PetModal({ isOpen, onClose, pet }) {
         overflow="hidden"
         position="relative"
         zIndex={10}
+        p={0}
       >
         <PetModalWrapper>
           <PetModalHeader>{pet.name}</PetModalHeader>
@@ -45,6 +58,11 @@ export default function PetModal({ isOpen, onClose, pet }) {
               <PetText>{pet.age} y.o.</PetText>
               <PetTextBold>Size:</PetTextBold>
               <PetText>{Size[pet.size] || pet.size}</PetText>
+              <SimilarPetsFilter
+                onToggle={handleToggleSimilarPets}
+                isActive={showSimilarPets}
+                isDisabled={showSimilarPets}
+              />
             </PetDetailsContainer>
           </PetModalBody>
         </PetModalWrapper>

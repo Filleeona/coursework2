@@ -1,9 +1,9 @@
 import styled from 'styled-components';
 
 export const PetModalWrapper = styled.div`
-  width: 60rem; /* Wider */
-  max-width: 100%; /* Responsive max width */
-  height: 30rem; /* Shorter height for horizontal rectangle */
+  width: 60rem;
+  max-width: 100%;
+  height: 30rem;
   background: white;
   border-radius: 0.5rem;
   overflow: hidden;
@@ -74,11 +74,15 @@ export const PetCloseButton = styled.button`
   background: none;
   border: none;
   font-size: 1.5rem;
-  cursor: pointer;
   color: #718096;
   z-index: 12;
 
   &:hover {
     color: #4a5568;
+  }
+
+  &:focus {
+    outline: none;
+    box-shadow: none;
   }
 `;

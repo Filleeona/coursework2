@@ -10,7 +10,7 @@ import {
 import { useDispatch, useSelector } from 'react-redux';
 import PetItem from './PetItem/PetItem.jsx';
 import PetModal from './PetModal/PetModal.jsx';
-import { useEffect, useMemo, useState } from 'react';
+import { useEffect, useMemo, useRef, useState } from 'react';
 import { fetchPets } from '../../features/app/appReducer.js';
 import AdoptBestFriend from './AdoptBestFriend/AdoptBestFriend.jsx';
 import AgeRange from './Filters/AgeRange/AgeRange.jsx';
@@ -26,6 +26,9 @@ export default function Pets() {
     useFilters();
   const [showFilters, setShowFilters] = useState(false);
   const [selectedPet, setSelectedPet] = useState(null);
+  const [showSimilarPets, setShowSimilarPets] = useState(false);
+  const [similarPet, setSimilarPet] = useState(null);
+  const filterButtonRef = useRef(null);
 
   useEffect(() => {
     if (!pets.length) {
@@ -35,6 +38,17 @@ export default function Pets() {
 
   const preparedPets = useMemo(() => {
     return pets.filter((pet) => {
+      if (showSimilarPets && similarPet) {
+        const ageDifference = Math.abs(
+          Number(pet.age) - Number(similarPet.age),
+        );
+        const isSameSize = pet.size === similarPet.size;
+        const isWithinAgeRange = ageDifference <= 1.5;
+        const isSameType = pet.type === similarPet.type;
+
+        return isSameSize && isWithinAgeRange && isSameType;
+      }
+
       if (
         age[0] !== undefined &&
         age[1] !== undefined &&
@@ -47,15 +61,34 @@ export default function Pets() {
       }
       return !(sizes.length > 0 && !sizes.includes(pet.size));
     });
-  }, [pets, age, sizes, categories]);
+  }, [pets, age, sizes, categories, showSimilarPets, similarPet]);
 
   const openPetModal = (pet) => {
-    console.log('Opening modal for:', pet);
     setSelectedPet(pet);
   };
 
   const closePetModal = () => {
     setSelectedPet(null);
+  };
+
+  const toggleSimilarPets = () => {
+    if (filterButtonRef.current) {
+      filterButtonRef.current.focus();
+    }
+    setShowSimilarPets((prev) => {
+      const newValue = !prev;
+      if (newValue) {
+        setSimilarPet(selectedPet);
+      } else {
+        setSimilarPet(null);
+      }
+      return newValue;
+    });
+  };
+
+  const clearSimilarPetsFilter = () => {
+    setShowSimilarPets(false);
+    setSimilarPet(null);
   };
 
   if (!pets.length) {
@@ -66,8 +99,9 @@ export default function Pets() {
     <PetsContainer>
       <AdoptBestFriend />
       <ColumnsContainer>
-        <Box mb="15px">
+        <Box mb="15px" display="flex" gap="10px">
           <Button
+            ref={filterButtonRef}
             onClick={() => setShowFilters(!showFilters)}
             colorScheme="brand"
             size="md"
@@ -76,6 +110,17 @@ export default function Pets() {
           >
             {showFilters ? 'Hide Filters' : 'Filter Pets'}
           </Button>
+          {showSimilarPets && (
+            <Button
+              onClick={clearSimilarPetsFilter}
+              colorScheme="brand"
+              size="md"
+              borderRadius="20px"
+              width="12rem"
+            >
+              Clear Similar Pets
+            </Button>
+          )}
         </Box>
 
         <Collapse in={showFilters} animateOpacity>
@@ -101,7 +146,7 @@ export default function Pets() {
                 <PetItem
                   pet={pet}
                   key={pet.name}
-                  onClick={() => openPetModal(pet)} // Pass click handler
+                  onClick={() => openPetModal(pet)}
                 />
               ))}
             </PetsGridContainer>
@@ -113,6 +158,8 @@ export default function Pets() {
         isOpen={!!selectedPet}
         onClose={closePetModal}
         pet={selectedPet}
+        onToggleSimilarPets={toggleSimilarPets}
+        showSimilarPets={showSimilarPets}
       />
 
       <PetsVideoContainer>

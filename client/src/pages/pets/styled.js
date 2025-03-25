@@ -10,6 +10,7 @@ export const PetsContainer = styled.div`
 export const PetsGridContainer = styled.div`
   display: grid;
   grid-template-columns: repeat(3, 1fr);
+  gap: 1rem;
   max-width: 100%;
   justify-content: center;
 `;
