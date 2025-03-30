@@ -6,6 +6,7 @@ import Help from './pages/help/Help.jsx';
 import NotFound from './pages/not-found/NotFound.jsx';
 import Header from './components/Header/Header.jsx';
 import Footer from './components/Footer/Footer.jsx';
+import ThemeSync from './theme/ThemeSync.jsx';
 
 function App() {
   const location = useLocation();
@@ -14,7 +15,7 @@ function App() {
   const isNavigationVisible = routesWithNavigation.includes(location.pathname);
 
   return (
-    <>
+    <ThemeSync>
       {isNavigationVisible && <Header />}
       <Routes>
         <Route path="/" element={<Main />} />
@@ -23,7 +24,7 @@ function App() {
         <Route path="*" element={<NotFound />} />
       </Routes>
       {isNavigationVisible && <Footer />}
-    </>
+    </ThemeSync>
   );
 }
 

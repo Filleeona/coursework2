@@ -12,29 +12,27 @@ export default function Footer() {
         <Image src="images/logo2.png" height="8rem" />
       </FooterColumn>
       <FooterColumn>
-        <Heading fontSize="l" color="white" marginBottom="1rem">
+        <Heading fontSize="l" marginBottom="1rem">
           Address
         </Heading>
         {address.map((item) => (
-          <Text color="white" key={item} fontSize="sm">
+          <Text key={item} fontSize="sm">
             {item}
           </Text>
         ))}
       </FooterColumn>
       <FooterColumn>
-        <Heading fontSize="l" color="white" marginBottom="1rem">
+        <Heading fontSize="l" marginBottom="1rem">
           Contact
         </Heading>
-        <Link color="white" href="mailto:pets-house@gmail.com">
-          pets-house@gmail.com
-        </Link>
+        <Link href="mailto:pets-house@gmail.com">pets-house@gmail.com</Link>
       </FooterColumn>
       <FooterColumn>
-        <Heading fontSize="l" color="white" marginBottom="1rem">
+        <Heading fontSize="l" marginBottom="1rem">
           Supporters
         </Heading>
         {supporters.map((item) => (
-          <Text color="white" key={item} fontSize="sm">
+          <Text key={item} fontSize="sm">
             {item}
           </Text>
         ))}

@@ -7,6 +7,8 @@ export const OurStatisticContainer = styled.div`
   display: flex;
   flex-direction: column;
   align-items: center;
+  text-shadow: ${({ theme }) =>
+    theme.colorMode === 'light' ? 'none' : '0 2px 4px rgba(0, 0, 0, 0.6)'};
 `;
 
 export const OurStatisticContentWrapper = styled.div`

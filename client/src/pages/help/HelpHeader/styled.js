@@ -3,7 +3,7 @@ import styled from 'styled-components';
 export const HelpHeaderContainer = styled.div`
   background:
     linear-gradient(rgba(0, 0, 0, 0.3), rgba(0, 0, 0, 0), rgba(0, 0, 0, 0.3)),
-    url('/images/cat-and-dog-2.jpg') right top no-repeat;
+    url('/images/cat-and-dog-2.jpg') right top no-repeat #fff;
   width: 100%;
   height: 30rem;
   display: flex;
@@ -17,4 +17,6 @@ export const HelpHeaderHeading = styled.h2`
   color: black;
   text-align: left;
   margin-bottom: 1rem;
+  color: ${({ theme }) => (theme.colorMode === 'dark' ? '#444141' : '#000')};
+  text-shadow: 0 2px 4px rgba(0, 0, 0, 0.6);
 `;

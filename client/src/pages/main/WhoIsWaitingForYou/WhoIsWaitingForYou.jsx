@@ -1,7 +1,7 @@
-import { Button } from '@chakra-ui/react';
+import { Button, Text, useColorMode } from '@chakra-ui/react';
 import { useSelector } from 'react-redux';
 import { motion, useInView } from 'framer-motion';
-import { useRef } from 'react'; // useEffect не нужен, убираем
+import { useRef } from 'react';
 import {
   WhoIsWaitingForYouContainer,
   WhoIsWaitingGridContainer,
@@ -14,14 +14,13 @@ export default function WhoIsWaitingForYou({ onAdopt }) {
   const clonedPets = structuredClone(pets);
   clonedPets.sort(() => Math.random() - 0.5);
   const preparedPets = clonedPets.slice(0, 6);
+  const { colorMode } = useColorMode();
 
-  // Варианты анимации для имени
   const nameVariants = {
     hidden: { opacity: 0, y: 20 },
     visible: { opacity: 1, y: 0, transition: { duration: 1 } },
   };
 
-  // Компонент для элемента с анимацией по видимости
   const GridItemWithAnimation = ({ pet, index }) => {
     const ref = useRef(null);
     const isInView = useInView(ref, { margin: '0px 0px -100px 0px' });
@@ -31,7 +30,7 @@ export default function WhoIsWaitingForYou({ onAdopt }) {
         <motion.span
           variants={nameVariants}
           initial="hidden"
-          animate={isInView ? 'visible' : 'hidden'} // Анимация зависит от видимости
+          animate={isInView ? 'visible' : 'hidden'}
         >
           {pet.name}
         </motion.span>
@@ -42,14 +41,13 @@ export default function WhoIsWaitingForYou({ onAdopt }) {
   return (
     <WhoIsWaitingForYouContainer>
       <WhoIsWaitingHeadingContainer>
-        <h2 className="h2">Who is waiting for you?</h2>
-        <h3 className="h3">
-          If you want to know more about a pet, just click on its box.
-        </h3>
+        <Text className="h2" color={colorMode === 'dark' ? '#d8d4d3' : '#000'}>
+          Who is waiting for you?
+        </Text>
       </WhoIsWaitingHeadingContainer>
       <WhoIsWaitingGridContainer>
-        {preparedPets.map((pet, index) => (
-          <GridItemWithAnimation pet={pet} index={index} />
+        {preparedPets.map((pet) => (
+          <GridItemWithAnimation pet={pet} index={pet.id} key={pet.id} />
         ))}
       </WhoIsWaitingGridContainer>
       <Button
@@ -57,7 +55,13 @@ export default function WhoIsWaitingForYou({ onAdopt }) {
         borderRadius="20px"
         padding="1rem 5rem"
         onClick={onAdopt}
-        colorScheme="brand"
+        bg={colorMode === 'dark' ? '#4b4949' : 'brand.500'}
+        color={colorMode === 'dark' ? '#d8d4d3' : '#fff'}
+        _hover={
+          colorMode === 'dark'
+            ? { bg: '#444141', color: '#e5e1e0' }
+            : { bg: 'brand.600', color: '#fff' }
+        }
       >
         More
       </Button>

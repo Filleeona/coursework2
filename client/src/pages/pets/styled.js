@@ -5,6 +5,9 @@ export const PetsContainer = styled.div`
   display: flex;
   flex-direction: column;
   align-items: center;
+  background: ${({ theme }) =>
+    theme.colorMode === 'light' ? '#f7fafc' : '#333031'};
+  color: ${({ theme }) => (theme.colorMode === 'light' ? '#000' : '#d8d4d3')};
 `;
 
 export const PetsGridContainer = styled.div`
@@ -37,6 +40,8 @@ export const InputsColumn = styled.div`
   box-shadow: 0px 4px 12px rgba(0, 0, 0, 0.2);
   border-radius: 8px;
   padding: 1.5rem;
+  background: ${({ theme }) =>
+    theme.colorMode === 'light' ? '#f7fafc' : '#656263'};
 
   & > * {
     box-shadow: 0px 0px 3px 0px rgba(0, 0, 0, 0.3);
@@ -57,6 +62,9 @@ export const PetsColumn = styled.div`
 
 export const PetsColumnHeading = styled.h2`
   text-align: left;
+  color: ${({ theme }) => (theme.colorMode === 'light' ? '#000' : '#d8d4d3')};
+  text-shadow: ${({ theme }) =>
+    theme.colorMode === 'light' ? 'none' : '0 2px 4px rgba(0, 0, 0, 0.6)'};
 `;
 
 export const PetsVideoContainer = styled.div`

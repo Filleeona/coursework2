@@ -17,7 +17,7 @@ import AgeRange from './Filters/AgeRange/AgeRange.jsx';
 import CategorySelect from './Filters/CategorySelect/CategorySelect.jsx';
 import useFilters from './useFilters.js';
 import SizeSelect from './Filters/SizeSelect/SizeSelect.jsx';
-import { Box, Button, Collapse } from '@chakra-ui/react';
+import { Box, Button, Collapse, useColorMode } from '@chakra-ui/react';
 
 export default function Pets() {
   const { pets } = useSelector((root) => root.app);
@@ -29,6 +29,7 @@ export default function Pets() {
   const [showSimilarPets, setShowSimilarPets] = useState(false);
   const [similarPet, setSimilarPet] = useState(null);
   const filterButtonRef = useRef(null);
+  const { colorMode } = useColorMode();
 
   useEffect(() => {
     if (!pets.length) {
@@ -103,20 +104,32 @@ export default function Pets() {
           <Button
             ref={filterButtonRef}
             onClick={() => setShowFilters(!showFilters)}
-            colorScheme="brand"
             size="md"
             borderRadius="20px"
             width="8rem"
+            bg={colorMode === 'dark' ? '#4b4949' : 'brand.500'}
+            color={colorMode === 'dark' ? '#d8d4d3' : '#fff'}
+            _hover={
+              colorMode === 'dark'
+                ? { bg: '#444141', color: '#e5e1e0' }
+                : { bg: 'brand.600', color: '#fff' }
+            }
           >
             {showFilters ? 'Hide Filters' : 'Filter Pets'}
           </Button>
           {showSimilarPets && (
             <Button
               onClick={clearSimilarPetsFilter}
-              colorScheme="brand"
               size="md"
               borderRadius="20px"
               width="12rem"
+              bg={colorMode === 'dark' ? '#4b4949' : 'brand.500'}
+              color={colorMode === 'dark' ? '#d8d4d3' : '#fff'}
+              _hover={
+                colorMode === 'dark'
+                  ? { bg: '#444141', color: '#e5e1e0' }
+                  : { bg: 'brand.600', color: '#fff' }
+              }
             >
               Clear Similar Pets
             </Button>

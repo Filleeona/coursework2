@@ -36,12 +36,11 @@ export default function WaysToHelpUs() {
     },
   ];
 
-  // Animation variants for hover effect
   const itemVariants = {
     initial: { scale: 1, y: 0 },
     hover: {
-      scale: 1.05, // Slight scale increase
-      y: -5, // Slight lift upward
+      scale: 1.05,
+      y: -5,
       transition: {
         duration: 0.3,
         ease: 'easeOut',
@@ -53,12 +52,12 @@ export default function WaysToHelpUs() {
     <WaysToHelpUsContainer>
       <WaysToHelpUsHeading className="h2">Ways to help us</WaysToHelpUsHeading>
       <WaysToHelpUsGridContainer>
-        <WaysToHelpUsImage src="images/cat-and-dog.avif" />
+        <WaysToHelpUsImage src="images/help_page-removebg.png" />
         {waysToHelpUsItems.map((item) => (
           <motion.div
             key={item.heading}
             initial="initial"
-            whileHover="hover" // Trigger animation on hover
+            whileHover="hover"
             variants={itemVariants}
           >
             <WaysToHelpUsItem text={item.text} heading={item.heading} />

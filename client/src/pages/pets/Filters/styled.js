@@ -1,20 +1,19 @@
 import styled from 'styled-components';
 import { Checkbox } from '@chakra-ui/react';
 
-// Base container style
 export const BaseContainer = styled.div`
-  background: #f9fafb;
   border-radius: 12px;
   padding: 1.5rem;
   box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
   transition: transform 0.2s ease-in-out;
+  background: ${({ theme }) =>
+    theme.colorMode === 'light' ? '#fff' : '#d8d4d3'};
 
   &:hover {
     transform: translateY(-2px);
   }
 `;
 
-// Base title style
 export const BaseTitle = styled.h3`
   font-size: 1.25rem;
   font-weight: 600;
@@ -22,15 +21,15 @@ export const BaseTitle = styled.h3`
   margin-bottom: 1rem;
 `;
 
-// Custom checkbox style (shared across components)
 export const CustomCheckbox = styled(Checkbox)`
   .chakra-checkbox__control {
     border-radius: 6px;
     border: 2px solid #d1d5db;
     transition: all 0.2s ease-in-out;
+    background: #fff;
 
     &[data-checked] {
-      background: #4a90e2; /* Default checked color, can be overridden */
+      background: #4a90e2;
       border-color: #4a90e2;
     }
   }
@@ -42,7 +41,6 @@ export const CustomCheckbox = styled(Checkbox)`
   }
 `;
 
-// Custom slider thumb style
 export const CustomSliderThumb = styled.div`
   width: 20px;
   height: 20px;
@@ -51,7 +49,6 @@ export const CustomSliderThumb = styled.div`
   box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
 `;
 
-// Label container for AgeRange
 export const LabelContainer = styled.div`
   display: flex;
   justify-content: space-between;

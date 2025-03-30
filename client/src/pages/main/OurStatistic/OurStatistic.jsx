@@ -1,9 +1,11 @@
 import { OurStatisticContainer, OurStatisticContentWrapper } from './styled.js';
 import StatisticItem from './StatisticItem/StatisticItem.jsx';
 import { useSelector } from 'react-redux';
+import { Text, useColorMode } from '@chakra-ui/react';
 
 export default function OurStatistic() {
   const { pets } = useSelector((root) => root.app);
+  const { colorMode } = useColorMode();
 
   const amountOfCats = pets.filter((pet) => pet.type === 'cat').length;
   const amountOfDogs = pets.filter((pet) => pet.type === 'dog').length;
@@ -22,7 +24,7 @@ export default function OurStatistic() {
       image: '/svg/cat.svg',
     },
     {
-      id: 4,
+      id: 3,
       amount: 231,
       text: 'adopted',
       image: '/svg/pet-shelter.svg',
@@ -31,7 +33,9 @@ export default function OurStatistic() {
 
   return (
     <OurStatisticContainer>
-      <h3 className="h3">Our statistic</h3>
+      <Text className="h3" color={colorMode === 'dark' ? '#d8d4d3' : '#000'}>
+        Our statistic
+      </Text>
       <OurStatisticContentWrapper>
         {statistics.map((item) => (
           <StatisticItem

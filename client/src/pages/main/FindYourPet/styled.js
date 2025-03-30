@@ -22,9 +22,12 @@ export const FindYourPetImage = styled(Box)`
   right: 0;
   left: 0;
   bottom: 0;
-  filter: brightness(0.9);
   background-size: cover;
   background-position: center;
+  ${({ theme }) =>
+    theme.colorMode === 'light'
+      ? 'filter: brightness(90%)'
+      : 'filter: brightness(80%)'};
 `;
 
 export const FindYourPetContent = styled.div`
@@ -34,5 +37,11 @@ export const FindYourPetContent = styled.div`
   flex-direction: column;
   gap: 0.5rem;
   max-width: 40%;
-  z-index: 1; // Anything more than 0.
+  z-index: 1;
+  color: ${({ theme }) => (theme.colorMode === 'light' ? '#fff' : '#d8d4d3')};
+  text-shadow: 0 2px 4px rgba(0, 0, 0, 0.6);
+
+  &:hover {
+    text-decoration: none;
+  }
 `;

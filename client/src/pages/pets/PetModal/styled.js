@@ -1,6 +1,7 @@
 import styled from 'styled-components';
 
 export const PetModalWrapper = styled.div`
+  color: ${({ theme }) => (theme.colorMode === 'light' ? '#000' : '#fff')};
   width: 60rem;
   max-width: 100%;
   height: 30rem;
@@ -11,18 +12,22 @@ export const PetModalWrapper = styled.div`
   z-index: 10;
   display: flex;
   flex-direction: row;
+  background: ${({ theme }) =>
+    theme.colorMode === 'light' ? '#fff' : '#656263'};
 `;
 
 export const PetModalHeader = styled.div`
+  background: ${({ theme }) =>
+    theme.colorMode === 'light' ? '#fff' : '#656263'};
+  color: ${({ theme }) => (theme.colorMode === 'light' ? '#000' : '#d8d4d3')};
   position: absolute;
   top: 0;
   left: 0;
   width: 100%;
   padding: 1rem 1.5rem;
-  font-size: 1.7rem;
+  font-size: 1.5rem;
   font-weight: bold;
   border-bottom: 1px solid #e2e8f0;
-  background: white;
   z-index: 11;
 `;
 
@@ -60,11 +65,13 @@ export const PetTextBold = styled.p`
   font-size: 1.1rem;
   font-weight: bold;
   margin-top: 1rem;
+  color: ${({ theme }) => (theme.colorMode === 'light' ? '#000' : '#d8d4d3')};
 `;
 
 export const PetText = styled.p`
   font-size: 1rem;
   margin-top: 0.5rem;
+  color: ${({ theme }) => (theme.colorMode === 'light' ? '#000' : '#d8d4d3')};
 `;
 
 export const PetCloseButton = styled.button`
@@ -74,8 +81,9 @@ export const PetCloseButton = styled.button`
   background: none;
   border: none;
   font-size: 1.5rem;
-  color: #718096;
   z-index: 12;
+  color: ${({ theme }) =>
+    theme.colorMode === 'light' ? '#718096' : '#d8d4d3'};
 
   &:hover {
     color: #4a5568;

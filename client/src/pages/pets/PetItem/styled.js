@@ -2,7 +2,6 @@ import styled from 'styled-components';
 import { Image } from '@chakra-ui/react';
 
 export const PetItemContainer = styled.div`
-  background: #f9fafb;
   border-radius: 12px;
   padding: 1rem;
   box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
@@ -14,6 +13,8 @@ export const PetItemContainer = styled.div`
   flex-direction: column;
   align-items: center;
   justify-content: space-between;
+  background: ${({ theme }) =>
+    theme.colorMode === 'light' ? '#fff' : '#656263'};
 
   &:hover {
     transform: translateY(-2px);
@@ -30,21 +31,21 @@ export const PetImage = styled(Image)`
 export const PetItemHeading = styled.h4`
   font-size: 1.25rem;
   font-weight: 600;
-  color: #2d3748;
   margin: 0.6rem 0;
+  color: ${({ theme }) => (theme.colorMode === 'dark' ? '#000' : '#2d3748')};
 `;
 
 export const PetDescription = styled.p`
   font-size: 0.95rem;
-  color: #4b5563;
   margin-bottom: 0.5rem;
   line-height: 1.4;
+  color: ${({ theme }) => (theme.colorMode === 'dark' ? '#000' : '#4b5563')};
 `;
 
 export const PetDetails = styled.div`
   font-size: 0.9rem;
-  color: #718096;
   font-weight: 500;
+  color: ${({ theme }) => (theme.colorMode === 'dark' ? '#333031' : '#718096')};
 
   span {
     margin-right: 0.5rem;

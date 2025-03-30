@@ -18,3 +18,8 @@ export const AdoptBestFriendsButtons = styled.div`
   gap: 2rem;
   align-items: center;
 `;
+
+export const AdoptBestFriendTitle = styled.h1`
+  color: ${({ theme }) => (theme.colorMode === 'dark' ? '#d8d4d3' : '#fff')};
+  text-shadow: 0 2px 4px rgba(0, 0, 0, 0.6);
+`;

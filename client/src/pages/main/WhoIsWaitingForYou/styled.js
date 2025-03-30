@@ -13,6 +13,7 @@ export const WhoIsWaitingHeadingContainer = styled.div`
   justify-content: center;
   align-items: center;
   flex-direction: column;
+  text-shadow: 0 2px 4px rgba(0, 0, 0, 0.6);
 `;
 
 export const WhoIsWaitingGridContainer = styled.div`
@@ -21,6 +22,8 @@ export const WhoIsWaitingGridContainer = styled.div`
   grid-template-columns: repeat(3, 1fr);
   justify-items: center;
   gap: 2rem 4rem;
+  ${({ theme }) =>
+    theme.colorMode === 'light' ? 'none' : 'filter: brightness(80%)'};
 `;
 
 export const WhoIsWaitingGridItem = styled(Box)`

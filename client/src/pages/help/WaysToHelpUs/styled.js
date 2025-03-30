@@ -6,15 +6,20 @@ export const WaysToHelpUsContainer = styled.div`
   flex-direction: column;
   align-items: center;
   padding: 4rem 0;
+  background: ${({ theme }) =>
+    theme.colorMode === 'light' ? '#fff' : '#333031'};
 `;
 
 export const WaysToHelpUsHeading = styled.h2`
-  color: black;
+  color: ${({ theme }) => (theme.colorMode === 'light' ? '#000' : '#9e9e9e')};
+  text-shadow: 0 2px 4px rgba(0, 0, 0, 0.6);
 `;
 
 export const WaysToHelpUsImage = styled(Image)`
   height: 30rem;
   object-fit: contain;
+  border-radius: 40px;
+  ${({ theme }) => theme.colorMode === 'dark' && 'filter: brightness(80%);'}
 `;
 
 export const WaysToHelpUsGridContainer = styled.div`
@@ -53,5 +58,6 @@ export const WaysToHelpUsCommonInfo = styled.div`
   .h4 {
     text-align: center;
     font-size: 1.1rem;
+    color: ${({ theme }) => (theme.colorMode === 'light' ? '#000' : '#757575')};
   }
 `;
