@@ -27,7 +27,6 @@ app.get('/', (req, res) => {
 app.get('/pets', (req, res) => {
     db.ref('pets').once('value', (item) => {
         res.send(item.val().map((pet, index) => ({
-        // res.send([{
             ...pet,
             name: pet.name,
             age: pet.age,
@@ -37,32 +36,39 @@ app.get('/pets', (req, res) => {
     })
 })
 
+// Stripe integration
+const Stripe = require('stripe');
+const stripe = new Stripe(process.env.STRIPE_SECRET_KEY);
+
+app.post('/api/create-checkout-session', async (req, res) => {
+    const {amount} = req.body;
+
+    try {
+        const session = await stripe.checkout.sessions.create({
+            payment_method_types: ['card'],
+            line_items: [
+                {
+                    price_data: {
+                        currency: 'usd',
+                        product_data: {
+                            name: 'Donation',
+                        },
+                        unit_amount: amount,
+                    },
+                    quantity: 1,
+                },
+            ],
+            mode: 'payment',
+            success_url: 'http://localhost:5173/help?success=true',
+            cancel_url: 'http://localhost:5173/help?cancel=true',
+        });
+
+        res.json({id: session.id});
+    } catch (error) {
+        res.status(500).json({error: error.message});
+    }
+});
+
 app.listen(SERVER_PORT, () => {
     console.log(`Server is running on port ${SERVER_PORT}`)
 })
-
-// // Used for photo uploading.
-// const path = require('path');
-// const fs = require('fs');
-//
-// // const directoryPath = path.join(__dirname, 'images');
-//
-// function base64_encode(file) {
-//     const bitmap = fs.readFileSync(file);
-//     return new Buffer(bitmap).toString('base64');
-// }
-//
-// const base64 = base64_encode(path.join('new_images', 'dog14.jpg'));
-// console.log(base64)
-//
-// db.ref(`/pets/28/photo`).set(`data:image/jpeg;base64,${base64}`)
-
-// fs.readdir(directoryPath, function (err, files) {
-//     if (err) {
-//         return console.log('Unable to scan directory: ' + err);
-//     }
-//     files.forEach(function (file, index) {
-//         // Do whatever you want to do with the file
-//         db.ref(`/pets/${index}`).set({ photo: `data:image/jpeg;base64,${base64_encode(path.join('images', file))}` })
-//     });
-// });
