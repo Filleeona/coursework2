@@ -15,14 +15,21 @@ import {
   HappinessBar,
   HappinessFill,
   RewardSection,
-  Pet,
   Button,
   RewardItem,
+  ModalSectionHeading,
+  GoalReachedText,
 } from './styled.js';
 import WaysToHelpUsItem from './WaysToHelpUsItem/WaysToHelpUsItem.jsx';
 import MiniGame from './MiniGame.jsx';
 import { motion, AnimatePresence } from 'framer-motion';
 import { loadStripe } from '@stripe/stripe-js';
+import Lottie from 'lottie-react';
+import veryHappy from './Animations/VeryHappyDogAnimation.json';
+import happy from './animations/HappyDogAnimation.json';
+import neutral from './animations/NeutralDogAnimation.json';
+import sad from './animations/SadDogAnimation.json';
+import celebration from './animations/CelebrationAnimation.json';
 
 const stripePromise = loadStripe(
   'pk_test_51RNyRZFL41rQqpjaFBcnEtMMad8rjbADrlZZl4OBb9JMtKfhrZfIXhHbWd6PDv8MRCCGINlKfn98XWmY6GNVq1Fc00pr8pnAKn',
@@ -74,54 +81,64 @@ export default function WaysToHelpUs() {
   const [donated, setDonated] = useState(false);
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [isMiniGameOpen, setIsMiniGameOpen] = useState(false);
-  const [showFeedingAnimation, setShowFeedingAnimation] = useState(false);
+  const [currentAnimation, setCurrentAnimation] = useState(null);
   const modalRef = useRef(null);
 
-  // Load rewards from local storage and check for successful payment
+  const getPetAnimation = (happiness) => {
+    if (happiness < 30) return sad;
+    if (happiness < 50) return neutral;
+    if (happiness < 70) return happy;
+    return veryHappy;
+  };
+
+  // Load total donations and happiness from server
   useEffect(() => {
-    try {
-      const storedRewards = JSON.parse(localStorage.getItem('rewards') || '[]');
-      setRewards(storedRewards);
-      const totalDonated = storedRewards.reduce(
-        (sum, reward) => sum + reward.amount,
-        0,
-      );
-      setPetHappiness(Math.min(totalDonated / 5, 100));
-      setDonated(storedRewards.length > 0);
-
-      const urlParams = new URLSearchParams(window.location.search);
-      const isSuccess = urlParams.get('success') === 'true';
-      console.log(
-        'Payment success:',
-        isSuccess,
-        'Total donated:',
-        totalDonated,
-      );
-
-      // Only set donationAmount from totalDonated if not a success redirect
-      if (!isSuccess) {
-        setDonationAmount('');
-      }
-
-      if (isSuccess) {
-        const pendingDonation =
-          Number(localStorage.getItem('pendingDonation')) || 0;
-        console.log('Pending donation amount:', pendingDonation);
-        if (pendingDonation > 0) {
-          handleDonationSuccess(pendingDonation);
-          localStorage.removeItem('pendingDonation');
-          window.history.replaceState(
-            {},
-            document.title,
-            window.location.pathname,
-          );
-          setIsModalOpen(true); // Reopen the modal
-          setShowFeedingAnimation(true); // Trigger feeding animation
-          setTimeout(() => setShowFeedingAnimation(false), 2000); // Animation lasts 2 seconds
+    const fetchDonations = async () => {
+      try {
+        const response = await fetch(
+          'http://localhost:3002/api/total-donations',
+        );
+        const data = await response.json();
+        setPetHappiness(data.happinessPercentage);
+        setDonated(data.donated);
+        // Fetch the full list of donations to get the latest reward
+        const rewardsResponse = await fetch('http://localhost:3002/donations');
+        const rewardsData = await rewardsResponse.json();
+        if (rewardsData && rewardsData.length > 0) {
+          // Sort by timestamp or id (descending) and take the latest
+          const latestReward = [...rewardsData].sort(
+            (a, b) =>
+              b.timestamp.localeCompare(a.timestamp) ||
+              b.id.localeCompare(a.id),
+          )[0];
+          setRewards([latestReward]);
+        } else {
+          setRewards([]);
         }
+      } catch (error) {
+        console.error('Error fetching donations:', error);
       }
-    } catch (error) {
-      console.error('Error in useEffect:', error);
+    };
+    fetchDonations();
+
+    const urlParams = new URLSearchParams(window.location.search);
+    const isSuccess = urlParams.get('success') === 'true';
+
+    if (isSuccess) {
+      const pendingDonation =
+        Number(localStorage.getItem('pendingDonation')) || 0;
+      console.log('Pending donation amount:', pendingDonation);
+      if (pendingDonation > 0) {
+        handleDonationSuccess(pendingDonation);
+        localStorage.removeItem('pendingDonation');
+        window.history.replaceState(
+          {},
+          document.title,
+          window.location.pathname,
+        );
+        setIsModalOpen(true);
+        setCurrentAnimation(celebration); // Start with celebration
+      }
     }
   }, []);
 
@@ -131,7 +148,7 @@ export default function WaysToHelpUs() {
     console.log('Initiating Stripe payment with amount:', amount);
     if (amount > 0) {
       try {
-        localStorage.setItem('pendingDonation', amount.toString()); // Store the donation amount
+        localStorage.setItem('pendingDonation', amount.toString()); // Store temporarily
         setDonationAmount(''); // Clear the input immediately
         const stripe = await stripePromise;
         const response = await fetch(
@@ -163,20 +180,41 @@ export default function WaysToHelpUs() {
     }
   };
 
-  // Handle successful donation
-  const handleDonationSuccess = (amount) => {
+  const handleDonationSuccess = async (amount) => {
     try {
       console.log('Handling successful donation:', amount);
-      const newReward = {
-        id: Date.now(),
-        amount,
-        gift: amount >= 10 ? 'Golden Bone 🦴' : 'Shiny Coin 💰',
-      };
-      const updatedRewards = [...rewards, newReward];
-      setRewards(updatedRewards);
-      localStorage.setItem('rewards', JSON.stringify(updatedRewards));
-      setPetHappiness((prev) => Math.min(prev + amount / 5, 100));
-      setDonated(true);
+      await fetch('http://localhost:3002/api/save-donation', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ amount }),
+      });
+
+      // Refresh donations data
+      const response = await fetch('http://localhost:3002/api/total-donations');
+      const data = await response.json();
+      setPetHappiness(data.happinessPercentage);
+      setDonated(data.donated);
+      const rewardsResponse = await fetch('http://localhost:3002/donations');
+      const rewardsData = await rewardsResponse.json();
+      if (rewardsData && rewardsData.length > 0) {
+        const latestReward = [...rewardsData].sort(
+          (a, b) =>
+            b.timestamp.localeCompare(a.timestamp) || b.id.localeCompare(a.id),
+        )[0];
+        setRewards([latestReward]);
+      } else {
+        setRewards([]);
+      }
+
+      // After state updates, schedule the animation switch
+      setCurrentAnimation(celebration);
+      setTimeout(() => {
+        setCurrentAnimation(getPetAnimation(data.happinessPercentage));
+        console.log(
+          'Switched to pet animation with happiness:',
+          data.happinessPercentage,
+        );
+      }, 3000); // 3 seconds as per your adjustment
     } catch (error) {
       console.error('Error in handleDonationSuccess:', error);
     }
@@ -187,9 +225,25 @@ export default function WaysToHelpUs() {
     if (e.key === 'Escape') {
       setIsModalOpen(false);
       setIsMiniGameOpen(false);
-      setShowFeedingAnimation(false);
     }
   }, []);
+
+  useEffect(() => {
+    if (isModalOpen) {
+      const scrollBarWidth =
+        window.innerWidth - document.documentElement.clientWidth;
+      document.body.style.overflow = 'hidden';
+      document.body.style.width = `calc(100% - ${scrollBarWidth}px)`;
+    } else {
+      document.body.style.overflow = '';
+      document.body.style.width = '';
+    }
+
+    return () => {
+      document.body.style.overflow = '';
+      document.body.style.width = '';
+    };
+  }, [isModalOpen]);
 
   // Focus management for accessibility
   useEffect(() => {
@@ -256,7 +310,6 @@ export default function WaysToHelpUs() {
             onClick={() => {
               setIsModalOpen(false);
               setIsMiniGameOpen(false);
-              setShowFeedingAnimation(false);
             }}
           >
             <ModalContent
@@ -273,7 +326,6 @@ export default function WaysToHelpUs() {
                 onClick={() => {
                   setIsModalOpen(false);
                   setIsMiniGameOpen(false);
-                  setShowFeedingAnimation(false);
                 }}
               >
                 ×
@@ -285,9 +337,9 @@ export default function WaysToHelpUs() {
                 <>
                   {/* Donation Section */}
                   <DonationSection>
-                    <h2 className="text-2xl mb-4 text-gray-800 dark:text-gray-200">
+                    <ModalSectionHeading>
                       Support Us with a Donation
-                    </h2>
+                    </ModalSectionHeading>
                     <DonationInput
                       type="number"
                       value={donationAmount}
@@ -299,51 +351,63 @@ export default function WaysToHelpUs() {
                     </Button>
                   </DonationSection>
 
-                  {/* Virtual Pet Game with Feeding Animation */}
                   <GameSection>
-                    <h2 className="text-2xl mb-4 text-gray-800 dark:text-gray-200">
-                      Our Virtual Pet!
-                    </h2>
+                    <ModalSectionHeading>Our Virtual Pet!</ModalSectionHeading>
                     <motion.div
-                      animate={{
-                        scale: showFeedingAnimation ? [1, 1.2, 1] : 1,
-                        rotate: showFeedingAnimation ? [0, 10, -10, 0] : 0,
-                      }}
-                      transition={{
-                        duration: 2,
-                        times: [0, 0.2, 0.8, 1],
-                        repeat: showFeedingAnimation ? 1 : 0,
-                      }}
+                      key={
+                        currentAnimation
+                          ? currentAnimation.name
+                          : getPetAnimation(petHappiness).name
+                      }
+                      initial={{ opacity: 0 }}
+                      animate={{ opacity: 1 }}
+                      exit={{ opacity: 0 }}
+                      transition={{ duration: 0.5, ease: 'easeInOut' }}
                     >
-                      <Pet>{showFeedingAnimation ? '🐶🍖' : '🐶'}</Pet>
+                      <Lottie
+                        animationData={
+                          currentAnimation || getPetAnimation(petHappiness)
+                        }
+                        style={{
+                          width: 170,
+                          height: 170,
+                          margin: 0,
+                          padding: 0,
+                          display: 'block',
+                        }}
+                        loop={currentAnimation === celebration ? false : true}
+                        autoplay={true}
+                      />
                     </motion.div>
-                    <p className="my-2 text-gray-700 dark:text-gray-300">
-                      Happiness: {petHappiness}%
+                    <p className="text-gray-700 dark:text-gray-300 text-center">
+                      Happiness: {Math.round(petHappiness)}%
                     </p>
                     <HappinessBar>
                       <HappinessFill happiness={petHappiness} />
                     </HappinessBar>
+                    {petHappiness < 100 && (
+                      <GoalReachedText>
+                        Need $
+                        {Math.ceil((500 - (petHappiness * 500) / 100) / 5) * 5}{' '}
+                        more to reach goal!
+                      </GoalReachedText>
+                    )}
+                    {petHappiness === 100 && (
+                      <GoalReachedText>Goal reached! 🎉</GoalReachedText>
+                    )}
                     {donated && (
-                      <Button
-                        onClick={() => setIsMiniGameOpen(true)}
-                        className="mt-4"
-                      >
+                      <Button onClick={() => setIsMiniGameOpen(true)}>
                         Play Animal Puzzle Game
                       </Button>
                     )}
                   </GameSection>
 
-                  {/* Rewards Section */}
                   <RewardSection>
-                    <h2 className="text-2xl mb-4 text-gray-800 dark:text-gray-200">
-                      Your Rewards
-                    </h2>
+                    <ModalSectionHeading>Last Reward</ModalSectionHeading>
                     {rewards.length > 0 ? (
-                      rewards.map((reward) => (
-                        <RewardItem key={reward.id}>
-                          Donated ${reward.amount} - Reward: {reward.gift}
-                        </RewardItem>
-                      ))
+                      <RewardItem key={rewards[0].id}>
+                        Donated ${rewards[0].amount} - Reward: {rewards[0].gift}
+                      </RewardItem>
                     ) : (
                       <p className="text-gray-600 dark:text-gray-400">
                         No rewards yet. Donate to earn some!

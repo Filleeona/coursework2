@@ -1,6 +1,5 @@
 import styled from 'styled-components';
 import { Image } from '@chakra-ui/react';
-import tw from 'tailwind-styled-components';
 import { motion } from 'framer-motion';
 
 export const WaysToHelpUsContainer = styled.div`
@@ -106,8 +105,16 @@ export const ModalOverlay = styled(motion.div)`
   display: flex;
   justify-content: center;
   align-items: center;
-  z-index: 1000;
-  backdrop-filter: blur(4px);
+  z-index: 9999;
+  overflow-y: hidden;
+  padding: 1rem;
+
+  &::-webkit-scrollbar {
+    display: none;
+  }
+
+  -ms-overflow-style: none;
+  scrollbar-width: none;
 `;
 
 export const ModalContent = styled(motion.div)`
@@ -116,15 +123,43 @@ export const ModalContent = styled(motion.div)`
       ? 'linear-gradient(135deg, #ffffff 0%, #f9fafb 100%)'
       : 'linear-gradient(135deg, #1e1e1e 0%, #2c2c2c 100%)'};
   border-radius: 20px;
-  padding: 2rem;
-  max-width: 32rem;
+  padding: 1rem;
+  max-width: 35rem;
   width: 90%;
-  max-height: 85vh;
+  max-height: 95vh;
   overflow-y: auto;
   position: relative;
   box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
   border: 1px solid
     ${({ theme }) => (theme.colorMode === 'dark' ? '#333' : '#eee')};
+  overflow-x: hidden;
+
+  &:focus {
+    outline: none;
+  }
+
+  @media (max-height: 700px) {
+    padding: 1rem;
+    max-height: 90vh;
+  }
+`;
+
+export const ModalSectionHeading = styled.h2`
+  font-size: 1.3rem;
+  font-weight: 600;
+  color: ${({ theme }) =>
+    theme.colorMode === 'light' ? '#1a202c' : '#d8d4d3'};
+  text-align: center;
+`;
+
+export const GoalReachedText = styled.p`
+  font-size: 0.875rem;
+  color: ${({ theme }) =>
+    theme.colorMode === 'light' ? '#2e7d32' : '#a5d6a7'};
+  font-weight: 600;
+  text-align: center;
+  margin-top: 0.25rem;
+  margin-bottom: 1rem;
 `;
 
 // === Кнопка закрытия ===
@@ -153,20 +188,20 @@ export const DonationSection = styled.div`
   flex-direction: column;
   align-items: center;
   text-align: center;
-  margin-bottom: 2rem;
 `;
 
 export const DonationInput = styled.input`
   border: 2px solid
-    ${({ theme }) => (theme.colorMode === 'light' ? '#d1d5db' : '#4b5563')};
-  border-radius: 12px;
+    ${({ theme }) => (theme.colorMode === 'light' ? '#d1d5db' : '#3b3b3b')};
+  border-radius: 20px;
   padding: 0.75rem 1rem;
+  margin: 0.7rem 0;
   width: 100%;
   max-width: 24rem;
   font-size: 1rem;
   color: ${({ theme }) => (theme.colorMode === 'light' ? '#111' : '#ddd')};
   background: ${({ theme }) =>
-    theme.colorMode === 'light' ? '#fff' : '#1f2937'};
+    theme.colorMode === 'light' ? '#fff' : '#3b3b3b'};
   outline: none;
   transition: all 0.2s ease;
 
@@ -187,8 +222,8 @@ export const GameSection = styled.div`
   display: flex;
   flex-direction: column;
   align-items: center;
-  margin-bottom: 2rem;
-  padding: 1rem 0;
+  padding-top: 0.5rem;
+  margin-bottom: 0.5rem;
   border-top: 1px solid
     ${({ theme }) => (theme.colorMode === 'light' ? '#eee' : '#333')};
   border-bottom: 1px solid
@@ -197,38 +232,33 @@ export const GameSection = styled.div`
 
 export const HappinessBar = styled.div`
   width: 100%;
-  height: 10px;
+  height: 8px;
   background: ${({ theme }) =>
     theme.colorMode === 'light' ? '#e5e7eb' : '#374151'};
-  border-radius: 5px;
+  border-radius: 4px;
   overflow: hidden;
-  margin-top: 10px;
+  margin-top: 8px;
 `;
 
 export const HappinessFill = styled.div`
   height: 100%;
-  background: linear-gradient(
-    to right,
-    ${({ theme }) => (theme.colorMode === 'light' ? '#ff6b6b' : '#d94848')},
-    ${({ theme }) => (theme.colorMode === 'light' ? '#feca57' : '#e0a800')}
-  );
+  background: ${({ theme }) =>
+    theme.colorMode === 'light'
+      ? 'linear-gradient(to right, #ff6b6b, #feca57)'
+      : 'linear-gradient(to right, #d94848, #e0a800)'};
   width: ${({ happiness }) => happiness}%;
-  transition: width 0.4s ease-in-out;
-`;
+  border-radius: 4px;
+  transition: width 1s ease-out;
 
-export const Pet = styled(motion.div)`
-  width: 100px;
-  height: 100px;
-  background: linear-gradient(135deg, #fbbf24, #facc15);
-  border-radius: 9999px;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  font-size: 2.5rem;
-  box-shadow: 0 6px 16px rgba(0, 0, 0, 0.2);
-  margin-bottom: 0.5rem;
-  border: 2px solid #fff;
-  transition: transform 0.3s ease;
+  /* Добавляем эффект появления при монтировании */
+  opacity: 0;
+  animation: fadeIn 1s forwards;
+
+  @keyframes fadeIn {
+    to {
+      opacity: 1;
+    }
+  }
 `;
 
 // === Кнопка ===
@@ -238,10 +268,11 @@ export const Button = styled.button`
     theme.colorMode === 'light'
       ? 'linear-gradient(to right, #667eea, #764ba2)'
       : 'linear-gradient(to right, #3b3b3b, #555)'};
-  color: white;
+  color: ${({ theme }) => (theme.colorMode === 'light' ? '#fff' : '#d8d4d3')};
   font-weight: bold;
   border: none;
-  border-radius: 12px;
+  border-radius: 10px;
+  margin-bottom: 1rem;
   padding: 0.75rem 1.5rem;
   cursor: pointer;
   transition: all 0.3s ease;
@@ -264,6 +295,7 @@ export const RewardSection = styled.div`
   display: flex;
   flex-direction: column;
   align-items: center;
+  width: 100%;
 `;
 
 export const RewardItem = styled.div`
@@ -273,14 +305,9 @@ export const RewardItem = styled.div`
     theme.colorMode === 'light' ? '#2e7d32' : '#a5d6a7'};
   padding: 0.75rem 1rem;
   border-radius: 12px;
-  margin-bottom: 0.5rem;
+  margin: 0.5rem 0;
   width: 100%;
   max-width: 24rem;
   text-align: center;
   box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1);
-  transition: transform 0.2s ease;
-
-  &:hover {
-    transform: translateX(4px);
-  }
 `;
