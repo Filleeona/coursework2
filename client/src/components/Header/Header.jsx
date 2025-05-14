@@ -10,7 +10,8 @@ import {
 import { SunIcon, MoonIcon, Switch } from '@chakra-ui/icons';
 import { HeaderContainer } from './styled.js';
 import BreadcrumbItemLink from '../BreadcrumbItem/BreadcrumbItemLink.jsx';
-import { useEffect } from 'react';
+import { useEffect, useState } from 'react';
+import { Button } from './styled.js';
 
 export default function Header() {
   const location = useLocation();
@@ -29,7 +30,7 @@ export default function Header() {
       <Box boxSize="2.5rem">
         <Image src="images/logo2.png" />
       </Box>
-      <Flex align="center" gap="2rem">
+      <Flex align="center" gap="2.5rem" width="100%">
         <Breadcrumb separator="" spacing="1rem">
           <BreadcrumbItem>
             <BreadcrumbItemLink
@@ -77,31 +78,34 @@ export default function Header() {
           </BreadcrumbItem>
         </Breadcrumb>
 
-        <Flex align="center" gap="0.5rem">
-          {colorMode === 'light' ? (
-            <SunIcon color="yellow.500" />
-          ) : (
-            <MoonIcon color="gray.500" />
-          )}
-          <Switch
-            isChecked={colorMode === 'dark'}
-            onChange={toggleColorMode}
-            colorScheme="brand"
-            size="md"
-            aria-label={
-              colorMode === 'light'
-                ? 'Switch to dark mode'
-                : 'Switch to light mode'
-            }
-            sx={{
-              '& .chakra-switch__track': {
-                bg: colorMode === 'dark' ? 'gray.600' : 'gray.200',
-              },
-              '& .chakra-switch__thumb': {
-                bg: colorMode === 'dark' ? '#d8d4d3' : '#fff',
-              },
-            }}
-          />
+        <Flex align="center" gap="1rem" marginLeft="auto">
+          <Flex align="center" gap="0.5rem">
+            {colorMode === 'light' ? (
+              <SunIcon color="yellow.500" />
+            ) : (
+              <MoonIcon color="gray.500" />
+            )}
+            <Switch
+              isChecked={colorMode === 'dark'}
+              onChange={toggleColorMode}
+              colorScheme="brand"
+              size="md"
+              aria-label={
+                colorMode === 'light'
+                  ? 'Switch to dark mode'
+                  : 'Switch to light mode'
+              }
+              sx={{
+                '& .chakra-switch__track': {
+                  bg: colorMode === 'dark' ? 'gray.600' : 'gray.200',
+                },
+                '& .chakra-switch__thumb': {
+                  bg: colorMode === 'dark' ? '#d8d4d3' : '#fff',
+                },
+              }}
+            />
+          </Flex>
+          <Button>Play Animal Puzzle Game</Button>
         </Flex>
       </Flex>
     </HeaderContainer>

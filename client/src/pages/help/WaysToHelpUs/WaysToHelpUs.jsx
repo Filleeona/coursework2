@@ -353,32 +353,20 @@ export default function WaysToHelpUs() {
 
                   <GameSection>
                     <ModalSectionHeading>Our Virtual Pet!</ModalSectionHeading>
-                    <motion.div
-                      key={
-                        currentAnimation
-                          ? currentAnimation.name
-                          : getPetAnimation(petHappiness).name
+                    <Lottie
+                      animationData={
+                        currentAnimation || getPetAnimation(petHappiness)
                       }
-                      initial={{ opacity: 0 }}
-                      animate={{ opacity: 1 }}
-                      exit={{ opacity: 0 }}
-                      transition={{ duration: 0.5, ease: 'easeInOut' }}
-                    >
-                      <Lottie
-                        animationData={
-                          currentAnimation || getPetAnimation(petHappiness)
-                        }
-                        style={{
-                          width: 170,
-                          height: 170,
-                          margin: 0,
-                          padding: 0,
-                          display: 'block',
-                        }}
-                        loop={currentAnimation === celebration ? false : true}
-                        autoplay={true}
-                      />
-                    </motion.div>
+                      style={{
+                        width: 170,
+                        height: 170,
+                        margin: 0,
+                        padding: 0,
+                        display: 'block',
+                      }}
+                      loop={currentAnimation === celebration ? false : true}
+                      autoplay={true}
+                    />
                     <p className="text-gray-700 dark:text-gray-300 text-center">
                       Happiness: {Math.round(petHappiness)}%
                     </p>
@@ -395,11 +383,9 @@ export default function WaysToHelpUs() {
                     {petHappiness === 100 && (
                       <GoalReachedText>Goal reached! 🎉</GoalReachedText>
                     )}
-                    {donated && (
-                      <Button onClick={() => setIsMiniGameOpen(true)}>
-                        Play Animal Puzzle Game
-                      </Button>
-                    )}
+                    <Button onClick={() => setIsMiniGameOpen(true)}>
+                      Play Animal Puzzle Game
+                    </Button>
                   </GameSection>
 
                   <RewardSection>
